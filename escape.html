@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON Escape/Unescape Online | Escapar e Desescapar</title>
+  <meta name="description" content="JSON escape/unescape online: escape textos para strings JSON e reverta escapes (\n, \t, \" etc.) de forma rápida." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="/escape.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="JSON Escape/Unescape Online | Escapar e Desescapar" />
+  <meta property="og:description" content="Escape e unescape de strings para uso em JSON." />
+  <meta property="og:url" content="/escape.html" />
+  <meta property="og:image" content="/og.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="/og.svg" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.ico" sizes="any" />
+
+  <link rel="stylesheet" href="/assets/style.css" />
+  <script>
+    window.SITE_CONFIG = {
+      adsenseClient: "ca-pub-XXXXXXXXXXXXXXXX",
+      plausibleDomain: "SEU-DOMINIO-AQUI"
+    };
+  </script>
+</head>
+<body data-tool-mode="escape" data-download-ext="txt" data-download-name="escape.txt" data-download-mime="text/plain">
+  <header>
+    <div class="topbar">
+      <div class="nav" aria-label="Navegação">
+        <a href="/">Formatador</a>
+        <a href="/validator.html">Validador</a>
+        <a href="/minify.html">Minify</a>
+        <a href="/escape.html">Escape/Unescape</a>
+        <a href="/csv.html">JSON↔CSV</a>
+        <a href="/jsonl.html">Prettify JSONL</a>
+      </div>
+      <div class="nav" aria-label="Links do site">
+        <a href="/privacy.html">Privacidade</a>
+        <a href="/terms.html">Termos</a>
+        <a href="/contact.html">Contato</a>
+      </div>
+    </div>
+
+    <div class="ad-shell" data-ad-location="top" aria-label="Publicidade (topo)">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000000" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <h1 id="tool-title">Escape JSON</h1>
+    <p class="lead" id="tool-desc">Escape textos para usar com segurança dentro de strings JSON.</p>
+  </header>
+
+  <main>
+    <section class="tool" aria-label="Escape/Unescape">
+      <div class="grid">
+        <div>
+          <label for="json-input">Entrada</label>
+          <textarea id="json-input" placeholder='Cole aqui o texto (para escape) ou texto escapado (para unescape)...'></textarea>
+
+          <div class="actions">
+            <button id="run-btn" class="primary" type="button">Escapar</button>
+            <button id="swap-btn" class="ghost" type="button">Alternar modo</button>
+            <button id="clear-btn" class="muted-btn" type="button">Limpar</button>
+            <div id="status" class="status" role="status" aria-live="polite">
+              <span class="dot"></span>
+              <span>Pronto</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sticky">
+          <label for="json-output">Resultado</label>
+          <div class="copy-bar">
+            <button id="copy-btn" class="copy" type="button" disabled>Copiar</button>
+            <button id="download-btn" class="copy" type="button" disabled>Baixar</button>
+          </div>
+          <pre id="json-output" class="output" aria-live="polite"></pre>
+
+          <aside class="ad-shell ad-desktop-only" data-ad-location="sidebar" aria-label="Publicidade (lateral)">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000000" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-block" aria-label="Sobre escape">
+      <h2 class="section-title">Quando usar escape/unescape</h2>
+      <p>Escape ajuda quando você precisa inserir texto (com quebras, aspas, tabs) dentro de uma string JSON. Unescape reverte sequências como <code>\n</code>, <code>\t</code> e <code>\"</code> para leitura normal.</p>
+      <ul class="faq">
+        <li><strong>Isso cria um JSON completo?</strong> Não; ele transforma texto para caber em uma string JSON.</li>
+        <li><strong>O que acontece com caracteres especiais?</strong> Eles são escapados de acordo com JSON.</li>
+      </ul>
+    </section>
+
+    <div class="ad-shell" data-ad-location="footer" aria-label="Publicidade (rodapé)">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000000" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+  </main>
+
+  <footer>
+    <p class="lead">Ferramentas JSON com foco em utilidade e transparência.</p>
+    <div class="footer-links">
+      <a href="/privacy.html">Política de Privacidade</a>
+      <a href="/terms.html">Termos</a>
+      <a href="/contact.html">Contato</a>
+    </div>
+  </footer>
+
+  <script src="/assets/site.js" defer></script>
+  <script src="/assets/consent.js" defer></script>
+</body>
+</html>

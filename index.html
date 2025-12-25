@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formatador de JSON Online Rápido | Embelezar e Compactar JSON</title>
+  <meta name="description" content="Formatador de JSON online gratuito: formate, valide, compacte e copie JSON em segundos. Ferramenta rápida, responsiva e segura (processamento no navegador).">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="/" />
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Formatador de JSON Online Rápido | Embelezar e Compactar JSON">
+  <meta property="og:description" content="Cole, formate, compacte e copie JSON em segundos. Processamento local no navegador, grátis e otimizado para SEO.">
+  <meta property="og:url" content="/" />
+  <meta property="og:image" content="/og.svg" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/og.svg" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.ico" sizes="any" />
+
+  <link rel="stylesheet" href="/assets/style.css" />
+
+  <script>
+    window.SITE_CONFIG = {
+      // Preencha com seu ID/slot reais para ativar.
+      adsenseClient: "ca-pub-XXXXXXXXXXXXXXXX",
+      plausibleDomain: "SEU-DOMINIO-AQUI"
+    };
+  </script>
+</head>
+<body data-storage-key="jsonFormatterInput" data-download-ext="json" data-download-name="json-formatado.json" data-download-mime="application/json">
+  <header>
+    <div class="topbar">
+      <div class="nav" aria-label="Navegação">
+        <a href="/">Formatador</a>
+        <a href="/validator.html">Validador</a>
+        <a href="/minify.html">Minify</a>
+        <a href="/escape.html">Escape/Unescape</a>
+        <a href="/csv.html">JSON↔CSV</a>
+        <a href="/jsonl.html">Prettify JSONL</a>
+      </div>
+      <div class="nav" aria-label="Links do site">
+        <a href="/privacy.html">Privacidade</a>
+        <a href="/terms.html">Termos</a>
+        <a href="/contact.html">Contato</a>
+      </div>
+    </div>
+
+    <div class="ad-shell" data-ad-location="top" aria-label="Publicidade (topo)">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-slot="0000000000"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    </div>
+    <h1>Formatador de JSON Online</h1>
+    <p class="lead">Ferramenta gratuita e rápida para deixar qualquer JSON legível ou compactado. Processamento local no navegador, ideal para APIs, front-end e análise de dados.</p>
+    <div class="badges">
+      <span class="chip">Sem cadastro</span>
+      <span class="chip">Seguro: roda localmente</span>
+      <span class="chip">Responsivo e rápido</span>
+      <span class="chip">Transparência com anúncios</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="tool" aria-label="Formatador de JSON">
+      <div class="grid">
+        <div>
+          <label for="json-input">Entrada de JSON</label>
+          <textarea id="json-input" placeholder='Cole aqui seu JSON bruto ou minificado...'></textarea>
+
+          <div class="actions">
+            <button id="format-btn" class="primary" type="button">Formatar</button>
+            <button id="minify-btn" class="ghost" type="button">Compactar</button>
+            <button id="clear-btn" class="muted-btn" type="button">Limpar</button>
+            <button id="sample-btn" class="muted-btn" type="button">Usar exemplo</button>
+            <div id="status" class="status" role="status" aria-live="polite">
+              <span class="dot"></span>
+              <span>Pronto para formatar</span>
+            </div>
+          </div>
+
+          <div class="controls">
+            <div class="control-group">
+              <span>Espaços:</span>
+              <select id="indent-select" aria-label="Quantidade de espaços">
+                <option value="2" selected>2</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+            <label class="toggle" aria-label="Autoformatar ao digitar">
+              <input type="checkbox" id="auto-toggle">
+              <span class="slider"></span>
+              <span>Autoformatar</span>
+            </label>
+            <label class="toggle" aria-label="Salvar no navegador">
+              <input type="checkbox" id="persist-toggle" checked>
+              <span class="slider"></span>
+              <span>Salvar localmente</span>
+            </label>
+          </div>
+
+          <div class="stats">
+            <span class="pill" id="char-count">0 chars</span>
+            <span class="pill" id="line-count">0 linhas</span>
+          </div>
+        </div>
+
+        <div class="sticky">
+          <label for="json-output">Resultado</label>
+          <div class="copy-bar">
+            <button id="copy-btn" class="copy" type="button" disabled>Copiar</button>
+            <button id="download-btn" class="copy" type="button" disabled>Baixar</button>
+          </div>
+          <pre id="json-output" class="output" aria-live="polite"></pre>
+          <aside class="ad-shell ad-desktop-only" data-ad-location="sidebar" aria-label="Publicidade (lateral)">
+            <ins class="adsbygoogle"
+              style="display:block"
+              data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+              data-ad-slot="0000000000"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></ins>
+          </aside>
+          <div class="cta-panel">
+            Otimize sua produtividade: salve esta página nos favoritos e volte sempre que precisar validar JSON. O processamento é local; anúncios/medição podem carregar após seu consentimento.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ad-shell" data-ad-location="incontent" aria-label="Publicidade (no conteúdo)">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-slot="0000000000"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    </div>
+
+    <section class="helper">
+      <h2 class="section-title">Como usar o formatador de JSON</h2>
+      <p>1. Cole ou digite seu JSON no campo de entrada. 2. Clique em "Formatar" para embelezar ou em "Compactar" para minificar. 3. Copie ou baixe o resultado pronto. Erros de sintaxe são destacados na hora.</p>
+      <p>Funciona para payloads de APIs, configurações, logs e testes rápidos. Todo o processamento acontece no seu navegador, sem backend.</p>
+    </section>
+
+    <section class="seo-block" aria-label="Benefícios e SEO">
+      <h2 class="section-title">Por que este formatador de JSON?</h2>
+      <ul class="list">
+        <li>Velocidade: processamento instantâneo no navegador.</li>
+        <li>Precisão: valida e aponta erros de sintaxe para correções rápidas.</li>
+        <li>Produtividade: autoformatar enquanto digita e copiar com um clique.</li>
+        <li>Experiência: espaços reservados para anúncios, reduzindo CLS.</li>
+      </ul>
+      <p>Use diariamente para depurar APIs REST, ajustar arquivos de configuração, preparar demos ou compartilhar exemplos bem formatados com sua equipe.</p>
+    </section>
+
+    <section class="seo-block" aria-label="FAQ sobre formatar JSON">
+      <h2 class="section-title">Perguntas frequentes (FAQ)</h2>
+      <ul class="faq">
+        <li><strong>O processamento é seguro?</strong> Sim. Tudo acontece no seu navegador, sem enviar dados para servidores.</li>
+        <li><strong>Posso minificar JSON?</strong> Sim. Use o botão "Compactar" para remover quebras e espaços.</li>
+        <li><strong>Funciona em mobile?</strong> A interface é responsiva e otimizada para telas menores.</li>
+        <li><strong>Posso salvar o que digitei?</strong> Ative "Salvar localmente" para reabrir a página com o último JSON carregado.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="ad-shell" data-ad-location="footer" aria-label="Publicidade (rodapé)">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-slot="0000000000"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    </div>
+    <p class="lead">Ferramenta leve e útil, sem forçar cliques. Volte sempre que precisar formatar ou compactar JSON.</p>
+    <div class="footer-links">
+      <a href="/privacy.html">Política de Privacidade</a>
+      <a href="/terms.html">Termos</a>
+      <a href="/contact.html">Contato</a>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "O processamento é seguro?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Sim, todo o processamento ocorre no navegador e nada é enviado a servidores."}
+      },
+      {
+        "@type": "Question",
+        "name": "Posso minificar JSON?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Use o botão Compactar para gerar uma versão minificada, ideal para payloads de produção."}
+      },
+      {
+        "@type": "Question",
+        "name": "Funciona em mobile?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Sim, a interface é responsiva e adaptada para celulares e tablets."}
+      },
+      {
+        "@type": "Question",
+        "name": "Posso salvar o que digitei?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Ative Salvar localmente para reabrir com o último JSON carregado."}
+      }
+    ]
+  }
+  </script>
+
+  <script src="/assets/site.js" defer></script>
+  <script src="/assets/consent.js" defer></script>
+</body>
+</html>

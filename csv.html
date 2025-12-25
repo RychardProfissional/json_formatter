@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON ↔ CSV Online | Converter JSON para CSV e CSV para JSON</title>
+  <meta name="description" content="Converta JSON para CSV (e vice-versa) online. Cole, converta, copie ou baixe o resultado." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="/csv.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="JSON ↔ CSV Online | Converter" />
+  <meta property="og:description" content="Converta JSON (objeto/array de objetos) para CSV e CSV simples para JSON." />
+  <meta property="og:url" content="/csv.html" />
+  <meta property="og:image" content="/og.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="/og.svg" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.ico" sizes="any" />
+
+  <link rel="stylesheet" href="/assets/style.css" />
+  <script>
+    window.SITE_CONFIG = {
+      adsenseClient: "ca-pub-XXXXXXXXXXXXXXXX",
+      plausibleDomain: "SEU-DOMINIO-AQUI"
+    };
+  </script>
+</head>
+<body data-tool-mode="json-to-csv" data-download-ext="csv" data-download-name="saida.csv" data-download-mime="text/csv">
+  <header>
+    <div class="topbar">
+      <div class="nav" aria-label="Navegação">
+        <a href="/">Formatador</a>
+        <a href="/validator.html">Validador</a>
+        <a href="/minify.html">Minify</a>
+        <a href="/escape.html">Escape/Unescape</a>
+        <a href="/csv.html">JSON↔CSV</a>
+        <a href="/jsonl.html">Prettify JSONL</a>
+      </div>
+      <div class="nav" aria-label="Links do site">
+        <a href="/privacy.html">Privacidade</a>
+        <a href="/terms.html">Termos</a>
+        <a href="/contact.html">Contato</a>
+      </div>
+    </div>
+
+    <div class="ad-shell" data-ad-location="top" aria-label="Publicidade (topo)">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000000" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <h1 id="tool-title">JSON → CSV</h1>
+    <p class="lead" id="tool-desc">Converta JSON (objeto ou array de objetos) para CSV.</p>
+  </header>
+
+  <main>
+    <section class="tool" aria-label="Conversor JSON CSV">
+      <div class="grid">
+        <div>
+          <label for="json-input">Entrada</label>
+          <textarea id="json-input" placeholder='Cole aqui JSON ou CSV (dependendo do modo)...'></textarea>
+
+          <div class="actions">
+            <button id="run-btn" class="primary" type="button">Converter</button>
+            <button id="swap-btn" class="ghost" type="button">Alternar JSON↔CSV</button>
+            <button id="clear-btn" class="muted-btn" type="button">Limpar</button>
+            <div id="status" class="status" role="status" aria-live="polite">
+              <span class="dot"></span>
+              <span>Pronto</span>
+            </div>
+          </div>
+
+          <div class="cta-panel">
+            Dica: o modo CSV → JSON aceita CSV simples (sem parsing avançado de aspas). Para arquivos complexos, ajuste o CSV antes.
+          </div>
+        </div>
+
+        <div class="sticky">
+          <label for="json-output">Resultado</label>
+          <div class="copy-bar">
+            <button id="copy-btn" class="copy" type="button" disabled>Copiar</button>
+            <button id="download-btn" class="copy" type="button" disabled>Baixar</button>
+          </div>
+          <pre id="json-output" class="output" aria-live="polite"></pre>
+
+          <aside class="ad-shell ad-desktop-only" data-ad-location="sidebar" aria-label="Publicidade (lateral)">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000000" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-block" aria-label="Sobre converter JSON e CSV">
+      <h2 class="section-title">O que este conversor suporta</h2>
+      <ul class="list">
+        <li><strong>JSON → CSV:</strong> objeto ou array de objetos, com colunas unificadas por chaves.</li>
+        <li><strong>CSV → JSON:</strong> CSV simples com header na primeira linha.</li>
+      </ul>
+      <ul class="faq">
+        <li><strong>Arrays/objetos aninhados viram o quê?</strong> Eles são serializados como JSON dentro da célula.</li>
+        <li><strong>Por que meu CSV com aspas não converte perfeito?</strong> Este é um parser simples; para casos avançados, prefira uma conversão dedicada.</li>
+      </ul>
+    </section>
+
+    <div class="ad-shell" data-ad-location="footer" aria-label="Publicidade (rodapé)">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000000" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+  </main>
+
+  <footer>
+    <p class="lead">Ferramentas JSON com foco em utilidade e transparência.</p>
+    <div class="footer-links">
+      <a href="/privacy.html">Política de Privacidade</a>
+      <a href="/terms.html">Termos</a>
+      <a href="/contact.html">Contato</a>
+    </div>
+  </footer>
+
+  <script src="/assets/site.js" defer></script>
+  <script src="/assets/consent.js" defer></script>
+</body>
+</html>
