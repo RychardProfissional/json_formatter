@@ -25,6 +25,8 @@ const nextConfig: NextConfig = {
       { source: "/blog/", destination: "/blog", permanent: true },
       { source: "/blog/:slug/", destination: "/blog/:slug", permanent: true },
 
+      { source: "/image-compressor/", destination: "/image-compressor", permanent: true },
+
       { source: "/tools/", destination: "/tools", permanent: true },
       { source: "/tools/:path*/", destination: "/tools/:path*", permanent: true }
     ];

@@ -107,3 +107,12 @@ Tool domain logic lives in `src/domain/tools/*` and is imported by the tool UI c
 ## Notes
 - Legacy static `.html` site was removed from the repo; everything is now `.ts/.tsx`.
 - There is no DB; everything is static or runs in the browser.
+
+### Atualização 26/12/2025 – feature: Image Compressor
+- Criados arquivos:
+  - src/app/image-compressor/page.tsx
+  - src/app/image-compressor/components/ImageCompressor.tsx
+- Implementação: 100% client-side usando browser-image-compression (upload/drag-and-drop, qualidade, prévia, download)
+- SEO adicionado (SSR/SSG + FAQ em texto)
+- AdSense: blocos acima da dobra e após FAQ (via AdSlot, se habilitado por consentimento)
+- Sitemap/redirect: adicionada URL em src/app/sitemap.ts e normalização de /image-compressor/ em next.config.ts

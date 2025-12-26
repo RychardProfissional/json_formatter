@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticRoutes = [
     "",
+    "/image-compressor",
     "/tools",
     "/tools/json-formatter",
     "/tools/json-validator",
