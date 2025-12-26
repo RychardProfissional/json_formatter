@@ -4,12 +4,17 @@ import { useMemo, useState } from "react";
 import { prettifyJsonl } from "@/domain/tools";
 import { AdSlot } from "@/ui/components/AdSlot";
 import { SITE } from "@/application/siteConfig";
+import { useI18n } from "@/ui/providers/I18nProvider";
+import { useLocalePath } from "@/ui/hooks/useLocalePath";
 
 export function JsonlPrettifyClient() {
+  const { t } = useI18n();
+  const lp = useLocalePath();
+
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [indent, setIndent] = useState<2 | 4 | 8>(2);
-  const [status, setStatus] = useState<string>("Cole um JSON por linha e clique em prettify.");
+  const [status, setStatus] = useState<string>(() => t("tools.json.jsonl.status.idle"));
   const [statusKind, setStatusKind] = useState<"ok" | "error" | "">("");
 
   const isEmpty = useMemo(() => input.trim().length === 0, [input]);
@@ -27,17 +32,17 @@ export function JsonlPrettifyClient() {
   function onPrettify() {
     try {
       setOutput(prettifyJsonl(input, indent));
-      setOk("JSONL formatado.");
+      setOk(t("tools.json.jsonl.status.ok"));
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Falha ao formatar JSONL.");
+      setErr(e instanceof Error ? e.message : t("tools.json.jsonl.error"));
       setOutput("");
     }
   }
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">Prettify JSONL</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">Um JSON por linha → blocos legíveis (separados por linha em branco).</p>
+      <h1 className="text-3xl font-extrabold tracking-tight">{t("tools.json.jsonl.title")}</h1>
+      <p className="mt-3 text-slate-600 dark:text-slate-300">{t("tools.json.jsonl.subtitle")}</p>
 
       <AdSlot
         slot={SITE.adsenseSlots.tools}
@@ -48,7 +53,7 @@ export function JsonlPrettifyClient() {
       <div className="mt-6 flex flex-wrap items-end gap-3">
         <div>
           <label className="text-sm font-semibold" htmlFor="indent">
-            Indentação
+            {t("common.indent")}
           </label>
           <select
             id="indent"
@@ -56,9 +61,9 @@ export function JsonlPrettifyClient() {
             onChange={(e) => setIndent(Number(e.target.value) as 2 | 4 | 8)}
             className="mt-1 w-36 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none dark:border-slate-800 dark:bg-slate-900"
           >
-            <option value={2}>2 espaços</option>
-            <option value={4}>4 espaços</option>
-            <option value={8}>8 espaços</option>
+            <option value={2}>{t("common.spaces2")}</option>
+            <option value={4}>{t("common.spaces4")}</option>
+            <option value={8}>{t("common.spaces8")}</option>
           </select>
         </div>
 
@@ -68,7 +73,7 @@ export function JsonlPrettifyClient() {
           disabled={isEmpty}
           className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Prettify
+          {t("tools.json.jsonl.action")}
         </button>
       </div>
 
@@ -89,7 +94,7 @@ export function JsonlPrettifyClient() {
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
           <label className="text-sm font-semibold" htmlFor="input">
-            Entrada
+            {t("common.input")}
           </label>
           <textarea
             id="input"
@@ -103,7 +108,7 @@ export function JsonlPrettifyClient() {
 
         <div>
           <label className="text-sm font-semibold" htmlFor="output">
-            Saída
+            {t("common.output")}
           </label>
           <textarea
             id="output"
@@ -116,26 +121,23 @@ export function JsonlPrettifyClient() {
       </div>
 
       <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">O que é JSONL</h2>
-        <p>
-          JSONL (JSON Lines) é um formato onde cada linha é um JSON independente. Ele é comum em logs, pipelines e exportações.
-          Esta ferramenta transforma cada linha em um bloco JSON bem formatado, separado por uma linha em branco.
-        </p>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("tools.json.jsonl.section.what")}</h2>
+        <p>{t("tools.json.jsonl.what.body")}</p>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Como usar</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("tools.json.jsonl.section.how")}</h2>
         <ul className="list-disc space-y-2 pl-5">
-          <li>Cole um JSON por linha no campo de entrada.</li>
-          <li>Escolha a indentação (2/4/8 espaços).</li>
-          <li>Clique em Prettify e copie o resultado.</li>
+          <li>{t("tools.json.jsonl.how.li1")}</li>
+          <li>{t("tools.json.jsonl.how.li2")}</li>
+          <li>{t("tools.json.jsonl.how.li3")}</li>
         </ul>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("common.privacyTitle")}</h2>
         <p>
-          O processamento é local, no navegador. Evite colar dados sensíveis. Veja{" "}
-          <a className="font-semibold" href="/politica-de-privacidade">
-            Política de Privacidade
+          {t("tools.json.jsonl.privacy.before")}
+          <a className="font-semibold" href={lp("/politica-de-privacidade")}>
+            {t("common.privacyPolicy")}
           </a>
-          .
+          {t("tools.json.jsonl.privacy.after")}
         </p>
       </section>
     </main>

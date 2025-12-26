@@ -4,11 +4,16 @@ import { useMemo, useState } from "react";
 import { escapeForJsonString, unescapeFromJsonString } from "@/domain/tools";
 import { AdSlot } from "@/ui/components/AdSlot";
 import { SITE } from "@/application/siteConfig";
+import { useI18n } from "@/ui/providers/I18nProvider";
+import { useLocalePath } from "@/ui/hooks/useLocalePath";
 
 export function JsonEscapeClient() {
+  const { t } = useI18n();
+  const lp = useLocalePath();
+
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
-  const [status, setStatus] = useState<string>("Cole um texto e escolha uma ação.");
+  const [status, setStatus] = useState<string>(() => t("tools.json.escape.status.idle"));
   const [statusKind, setStatusKind] = useState<"ok" | "error" | "">("");
 
   const isEmpty = useMemo(() => input.length === 0, [input]);
@@ -25,24 +30,24 @@ export function JsonEscapeClient() {
 
   function onEscape() {
     setOutput(escapeForJsonString(input));
-    setOk("Texto escapado.");
+    setOk(t("tools.json.escape.status.escaped"));
   }
 
   function onUnescape() {
     try {
       setOutput(unescapeFromJsonString(input));
-      setOk("Texto desescapado.");
+      setOk(t("tools.json.escape.status.unescaped"));
     } catch {
-      setErr("Entrada inválida para unescape.");
+      setErr(t("tools.json.escape.status.invalid"));
       setOutput("");
     }
   }
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">Escape / Unescape</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight">{t("tools.json.escape.title")}</h1>
       <p className="mt-3 text-slate-600 dark:text-slate-300">
-        Escape e unescape de strings para uso em JSON (\\n, \\t, aspas, etc.).
+        {t("tools.json.escape.subtitle")}
       </p>
 
       <AdSlot
@@ -58,7 +63,7 @@ export function JsonEscapeClient() {
           disabled={isEmpty}
           className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Escape
+          {t("tools.json.escape.action.escape")}
         </button>
         <button
           type="button"
@@ -66,7 +71,7 @@ export function JsonEscapeClient() {
           disabled={isEmpty}
           className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:hover:bg-slate-900"
         >
-          Unescape
+          {t("tools.json.escape.action.unescape")}
         </button>
       </div>
 
@@ -87,7 +92,7 @@ export function JsonEscapeClient() {
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
           <label className="text-sm font-semibold" htmlFor="input">
-            Entrada
+            {t("common.input")}
           </label>
           <textarea
             id="input"
@@ -100,7 +105,7 @@ export function JsonEscapeClient() {
 
         <div>
           <label className="text-sm font-semibold" htmlFor="output">
-            Saída
+            {t("common.output")}
           </label>
           <textarea
             id="output"
@@ -113,38 +118,45 @@ export function JsonEscapeClient() {
       </div>
 
       <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">O que é escape e unescape</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+          {t("tools.json.escape.section.what")}
+        </h2>
         <p>
-          O <strong>escape</strong> transforma caracteres especiais em sequências seguras para strings, como <code>\n</code> (quebra de linha),
-          <code>\t</code> (tab) e <code>\"</code> (aspas). O <strong>unescape</strong> faz o caminho inverso.
+          {t("tools.json.escape.what.before")}
+          <code>\\n</code>
+          {t("tools.json.escape.what.middle1")}
+          <code>\\t</code>
+          {t("tools.json.escape.what.middle2")}
+          <code>{'\\\"'}</code>
+          {t("tools.json.escape.what.after")}
         </p>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Quando usar</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("tools.json.escape.section.when")}</h2>
         <ul className="list-disc space-y-2 pl-5">
-          <li>Inserir um JSON como string em código (ex.: JavaScript/TypeScript).</li>
-          <li>Colar valores em variáveis de ambiente, logs ou testes automatizados.</li>
-          <li>Reverter uma string escapada para leitura humana (unescape).</li>
+          <li>{t("tools.json.escape.when.li1")}</li>
+          <li>{t("tools.json.escape.when.li2")}</li>
+          <li>{t("tools.json.escape.when.li3")}</li>
         </ul>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Cuidados</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("tools.json.escape.section.cautions")}</h2>
         <ul className="list-disc space-y-2 pl-5">
-          <li>Evite escape duplo (escapar duas vezes) para não dificultar o unescape.</li>
+          <li>{t("tools.json.escape.cautions.li1")}</li>
           <li>
-            Se estiver lidando com JSON completo, valide antes com o{" "}
-            <a className="font-semibold" href="/tools/json/validator">
-              Validador JSON
+            {t("tools.json.escape.cautions.li2.before")}
+            <a className="font-semibold" href={lp("/tools/json/validator")}>
+              {t("tools.json.escape.cautions.li2.link")}
             </a>
-            .
+            {t("tools.json.escape.cautions.li2.after")}
           </li>
         </ul>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("common.privacyTitle")}</h2>
         <p>
-          O processamento acontece no seu navegador. Evite colar segredos. Detalhes em{" "}
-          <a className="font-semibold" href="/politica-de-privacidade">
-            Política de Privacidade
+          {t("tools.json.escape.privacy.before")}
+          <a className="font-semibold" href={lp("/politica-de-privacidade")}>
+            {t("common.privacyPolicy")}
           </a>
-          .
+          {t("tools.json.escape.privacy.after")}
         </p>
       </section>
     </main>

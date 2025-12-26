@@ -4,11 +4,16 @@ import { useMemo, useState } from "react";
 import { minifyJson, parseJson } from "@/domain/tools";
 import { AdSlot } from "@/ui/components/AdSlot";
 import { SITE } from "@/application/siteConfig";
+import { useI18n } from "@/ui/providers/I18nProvider";
+import { useLocalePath } from "@/ui/hooks/useLocalePath";
 
 export function JsonMinifyClient() {
+  const { t } = useI18n();
+  const lp = useLocalePath();
+
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
-  const [status, setStatus] = useState<string>("Cole um JSON e clique em minificar.");
+  const [status, setStatus] = useState<string>(() => t("tools.json.minify.status.idle"));
   const [statusKind, setStatusKind] = useState<"ok" | "error" | "">("");
 
   const isEmpty = useMemo(() => input.trim().length === 0, [input]);
@@ -31,23 +36,25 @@ export function JsonMinifyClient() {
       return;
     }
     setOutput(minifyJson(parsed.value));
-    setOk("JSON compactado.");
+    setOk(t("tools.json.minify.status.minified"));
   }
 
   async function onCopy() {
     if (!output.trim()) return;
     try {
       await navigator.clipboard.writeText(output);
-      setOk("Copiado.");
+      setOk(t("common.copied"));
     } catch {
-      setErr("Não foi possível copiar automaticamente.");
+      setErr(t("common.copyFailed"));
     }
   }
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">JSON Minify</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">Compacte JSON removendo espaços e quebras de linha.</p>
+      <h1 className="text-3xl font-extrabold tracking-tight">{t("tools.json.minify.title")}</h1>
+      <p className="mt-3 text-slate-600 dark:text-slate-300">
+        {t("tools.json.minify.subtitle")}
+      </p>
 
       <AdSlot
         slot={SITE.adsenseSlots.tools}
@@ -62,7 +69,7 @@ export function JsonMinifyClient() {
           disabled={isEmpty}
           className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Minificar
+          {t("common.minify")}
         </button>
         <button
           type="button"
@@ -70,7 +77,7 @@ export function JsonMinifyClient() {
           disabled={!output.trim()}
           className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:hover:bg-slate-900"
         >
-          Copiar
+          {t("common.copy")}
         </button>
       </div>
 
@@ -91,7 +98,7 @@ export function JsonMinifyClient() {
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
           <label className="text-sm font-semibold" htmlFor="input">
-            Entrada
+            {t("common.input")}
           </label>
           <textarea
             id="input"
@@ -104,7 +111,7 @@ export function JsonMinifyClient() {
 
         <div>
           <label className="text-sm font-semibold" htmlFor="output">
-            Saída
+            {t("common.output")}
           </label>
           <textarea
             id="output"
@@ -117,28 +124,35 @@ export function JsonMinifyClient() {
       </div>
 
       <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Quando usar o minify</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+          {t("tools.json.minify.section.when")}
+        </h2>
         <p>
-          Minificar é útil para reduzir tamanho ao salvar em arquivos, enviar em requisições ou armazenar em variáveis de ambiente. O
-          conteúdo permanece o mesmo; apenas a formatação (espaços e quebras de linha) é removida.
+          {t("tools.json.minify.when.body")}
         </p>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Cuidados comuns</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+          {t("tools.json.minify.section.cautions")}
+        </h2>
         <ul className="list-disc space-y-2 pl-5">
           <li>
-            Se o JSON estiver inválido, corrija primeiro com o <a className="font-semibold" href="/tools/json/validator">validador</a>.
+            {t("tools.json.minify.caution.validator.before")}
+            <a className="font-semibold" href={lp("/tools/json/validator")}>
+              {t("tools.json.minify.caution.validator.link")}
+            </a>
+            {t("tools.json.minify.caution.validator.after")}
           </li>
-          <li>Evite colar segredos (tokens/chaves). Mesmo com processamento local, é boa prática não expor dados sensíveis.</li>
-          <li>Se precisar comparar diffs, formate com indentação antes.</li>
+          <li>{t("tools.json.minify.caution.secrets")}</li>
+          <li>{t("tools.json.minify.caution.diffs")}</li>
         </ul>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("common.privacyTitle")}</h2>
         <p>
-          O minify acontece no seu navegador. Saiba mais em{" "}
-          <a className="font-semibold" href="/politica-de-privacidade">
-            Política de Privacidade
+          {t("tools.json.minify.privacy.before")}
+          <a className="font-semibold" href={lp("/politica-de-privacidade")}>
+            {t("common.privacyPolicy")}
           </a>
-          .
+          {t("tools.json.minify.privacy.after")}
         </p>
       </section>
     </main>

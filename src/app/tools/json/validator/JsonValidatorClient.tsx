@@ -4,12 +4,17 @@ import { useMemo, useState } from "react";
 import { parseJson } from "@/domain/tools";
 import { AdSlot } from "@/ui/components/AdSlot";
 import { SITE } from "@/application/siteConfig";
+import { useI18n } from "@/ui/providers/I18nProvider";
+import { useLocalePath } from "@/ui/hooks/useLocalePath";
 
 export function JsonValidatorClient() {
+  const { t } = useI18n();
+  const lp = useLocalePath();
+
   const [input, setInput] = useState("");
   const [result, setResult] = useState<{ ok: boolean; message: string }>({
     ok: false,
-    message: "Cole um JSON e clique em validar."
+    message: t("tools.json.validator.status.idle")
   });
 
   const isEmpty = useMemo(() => input.trim().length === 0, [input]);
@@ -20,13 +25,13 @@ export function JsonValidatorClient() {
       setResult({ ok: false, message: parsed.errorMessage });
       return;
     }
-    setResult({ ok: true, message: "JSON válido." });
+    setResult({ ok: true, message: t("tools.json.validator.status.valid") });
   }
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">Validador JSON</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">Cheque se um JSON está válido e veja o erro quando não estiver.</p>
+      <h1 className="text-3xl font-extrabold tracking-tight">{t("tools.json.validator.title")}</h1>
+      <p className="mt-3 text-slate-600 dark:text-slate-300">{t("tools.json.validator.subtitle")}</p>
 
       <AdSlot
         slot={SITE.adsenseSlots.tools}
@@ -41,7 +46,7 @@ export function JsonValidatorClient() {
           disabled={isEmpty}
           className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Validar
+          {t("common.validate")}
         </button>
       </div>
 
@@ -59,7 +64,7 @@ export function JsonValidatorClient() {
 
       <div className="mt-6">
         <label className="text-sm font-semibold" htmlFor="input">
-          JSON
+          {t("common.json")}
         </label>
         <textarea
           id="input"
@@ -72,33 +77,42 @@ export function JsonValidatorClient() {
       </div>
 
       <p className="mt-8 text-sm text-slate-500 dark:text-slate-400">
-        Dica: se estiver inválido, use o <a className="font-semibold" href="/tools/json/formatter">formatador</a> para facilitar a correção.
+        {t("tools.json.validator.tip.before")}
+        <a className="font-semibold" href={lp("/tools/json/formatter")}>
+          {t("tools.json.validator.tip.link")}
+        </a>
+        {t("tools.json.validator.tip.after")}
       </p>
 
       <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">O que este validador faz</h2>
-        <p>
-          O validador verifica a <strong>sintaxe</strong> do JSON. Ele ajuda a identificar erros como vírgula extra no final,
-          aspas erradas, chaves/colchetes desbalanceados e caracteres não escapados dentro de strings.
-        </p>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+          {t("tools.json.validator.section.what")}
+        </h2>
+        <p>{t("tools.json.validator.what.body")}</p>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Como corrigir rápido</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+          {t("tools.json.validator.section.fix")}
+        </h2>
         <ul className="list-disc space-y-2 pl-5">
-          <li>Se a mensagem citar uma posição (linha/coluna), volte alguns caracteres e procure a quebra.</li>
-          <li>Troque aspas simples por aspas duplas.</li>
-          <li>Remova vírgula sobrando após o último item.</li>
+          <li>{t("tools.json.validator.fix.li1")}</li>
+          <li>{t("tools.json.validator.fix.li2")}</li>
+          <li>{t("tools.json.validator.fix.li3")}</li>
           <li>
-            Use o <a className="font-semibold" href="/tools/json/formatter">Formatador de JSON</a> para reorganizar e enxergar o problema.
+            {t("tools.json.validator.fix.li4.before")}
+            <a className="font-semibold" href={lp("/tools/json/formatter")}>
+              {t("tools.json.validator.fix.li4.link")}
+            </a>
+            {t("tools.json.validator.fix.li4.after")}
           </li>
         </ul>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("common.privacyTitle")}</h2>
         <p>
-          O conteúdo colado é processado no navegador. Evite colar segredos. Veja detalhes em{" "}
-          <a className="font-semibold" href="/politica-de-privacidade">
-            Política de Privacidade
+          {t("tools.json.validator.privacy.before")}
+          <a className="font-semibold" href={lp("/politica-de-privacidade")}>
+            {t("common.privacyPolicy")}
           </a>
-          .
+          {t("tools.json.validator.privacy.after")}
         </p>
       </section>
     </main>

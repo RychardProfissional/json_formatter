@@ -1,23 +1,21 @@
 import type { Metadata } from "next";
+import { PT_BR } from "@/languages/pt-br";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidade",
-  description:
-    "Política de Privacidade da Respawn Tech: dados, armazenamento local, cookies, anúncios (AdSense) e analytics.",
+  title: PT_BR["privacyPage.meta.title"],
+  description: PT_BR["privacyPage.meta.description"],
   alternates: { canonical: "/politica-de-privacidade" },
   openGraph: {
     type: "website",
-    title: "Política de Privacidade | Respawn Tech",
-    description:
-      "Política de Privacidade da Respawn Tech: dados, armazenamento local, cookies, anúncios (AdSense) e analytics.",
+    title: PT_BR["privacyPage.meta.ogTitle"],
+    description: PT_BR["privacyPage.meta.description"],
     url: "https://respawntech.dev/politica-de-privacidade",
     images: ["/og.svg"]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Política de Privacidade | Respawn Tech",
-    description:
-      "Política de Privacidade da Respawn Tech: dados, armazenamento local, cookies, anúncios (AdSense) e analytics.",
+    title: PT_BR["privacyPage.meta.ogTitle"],
+    description: PT_BR["privacyPage.meta.description"],
     images: ["/og.svg"]
   }
 };
@@ -25,46 +23,44 @@ export const metadata: Metadata = {
 export default function PoliticaDePrivacidadePage() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">Política de Privacidade</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">
-        Transparência sobre dados, armazenamento local, cookies, anúncios e analytics.
-      </p>
+      <h1 className="text-3xl font-extrabold tracking-tight">{PT_BR["privacyPage.h1"]}</h1>
+      <p className="mt-3 text-slate-600 dark:text-slate-300">{PT_BR["privacyPage.subtitle"]}</p>
 
       <div className="mt-8 space-y-4">
         {[
           {
-            title: "1) Dados inseridos nas ferramentas",
-            body: "O conteúdo que você cola nas ferramentas é processado no seu navegador. Não precisamos enviar esse conteúdo para um servidor próprio para formatar/validar/converter."
+            title: PT_BR["privacyPage.sections.1.title"],
+            body: PT_BR["privacyPage.sections.1.body"]
           },
           {
-            title: "2) Armazenamento local",
-            body: "Algumas ferramentas podem oferecer a opção de salvar localmente (localStorage) para reabrir o último texto. Você pode desativar essa opção na interface."
+            title: PT_BR["privacyPage.sections.2.title"],
+            body: PT_BR["privacyPage.sections.2.body"]
           },
           {
-            title: "3) Anúncios",
-            body: "Podemos exibir anúncios (ex.: Google AdSense). Fornecedores podem usar cookies/identificadores para exibir anúncios e medir performance, conforme seu consentimento e as configurações do fornecedor."
+            title: PT_BR["privacyPage.sections.3.title"],
+            body: PT_BR["privacyPage.sections.3.body"]
           },
           {
-            title: "4) Medição (analytics)",
-            body: "Podemos usar analytics (ex.: Plausible) para entender uso do site e melhorar as ferramentas. O carregamento fica condicionado ao seu consentimento quando aplicável."
+            title: PT_BR["privacyPage.sections.4.title"],
+            body: PT_BR["privacyPage.sections.4.body"]
           },
           {
-            title: "5) Base legal e consentimento",
-            body: "Quando aplicável, exibimos um banner de consentimento para você aceitar ou recusar cookies/tecnologias de anúncios e medição."
+            title: PT_BR["privacyPage.sections.5.title"],
+            body: PT_BR["privacyPage.sections.5.body"]
           },
           {
-            title: "Preferências de cookies",
-            body: "Você pode revisar sua escolha a qualquer momento pelo link “Preferências de cookies” no rodapé.",
+            title: PT_BR["privacyPage.sections.cookiesPrefs.title"],
+            body: PT_BR["privacyPage.sections.cookiesPrefs.body"],
             id: "preferencias"
           },
           {
-            title: "6) Seus direitos",
-            body: "Você pode gerenciar cookies no seu navegador e ajustar sua escolha pelo banner (limpando o armazenamento do site, se necessário)."
+            title: PT_BR["privacyPage.sections.6.title"],
+            body: PT_BR["privacyPage.sections.6.body"]
           },
           {
-            title: "7) Contato",
-            body: "Para dúvidas sobre privacidade, acesse a página de Contato.",
-            link: { href: "/contato", label: "Ir para contato" }
+            title: PT_BR["privacyPage.sections.7.title"],
+            body: PT_BR["privacyPage.sections.7.body"],
+            link: { href: "/contato", label: PT_BR["privacyPage.sections.7.linkLabel"] }
           }
         ].map((s) => (
           <section
@@ -84,7 +80,7 @@ export default function PoliticaDePrivacidadePage() {
           </section>
         ))}
 
-        <p className="text-sm text-slate-500 dark:text-slate-400">Última atualização: 26/12/2025.</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">{PT_BR["privacyPage.lastUpdated"]}</p>
       </div>
     </main>
   );

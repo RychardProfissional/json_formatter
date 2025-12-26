@@ -1,40 +1,15 @@
 "use client";
 
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { I18N_COOKIE_KEY, I18N_STORAGE_KEY, isSupportedLocale } from "@/application/i18n";
+import { DICTIONARIES, type Locale as AppLocale } from "@/languages";
 
-export type Locale = "pt-BR" | "en";
-
-type Dictionary = Record<string, string>;
-
-const dictionaries: Record<Locale, Dictionary> = {
-  "pt-BR": {
-    "nav.home": "Respawn Tech",
-    "nav.tools": "Ferramentas",
-    "nav.blog": "Blog",
-    "nav.about": "Sobre",
-    "nav.contact": "Contato",
-    "footer.tagline": "Respawn Tech existe para devolver tempo a quem cria.",
-    "legal.privacy": "Política de Privacidade",
-    "legal.terms": "Termos de Uso",
-    "legal.cookiePrefs": "Preferências de cookies"
-  },
-  en: {
-    "nav.home": "Respawn Tech",
-    "nav.tools": "Tools",
-    "nav.blog": "Blog",
-    "nav.about": "About",
-    "nav.contact": "Contact",
-    "footer.tagline": "Respawn Tech helps you move faster.",
-    "legal.privacy": "Privacy Policy",
-    "legal.terms": "Terms of Use",
-    "legal.cookiePrefs": "Cookie preferences"
-  }
-};
+export type Locale = AppLocale;
 
 interface I18nApi {
   locale: Locale;
   setLocale: (next: Locale) => void;
-  t: (key: string) => string;
+  t: (key: string, vars?: Record<string, string | number>) => string;
 }
 
 const I18nContext = createContext<I18nApi | null>(null);
@@ -46,14 +21,52 @@ export function I18nProvider({
   children: React.ReactNode;
   defaultLocale?: Locale;
 }) {
-  const [locale, setLocale] = useState<Locale>(defaultLocale);
+  const [locale, setLocale] = useState<Locale>(() => {
+    if (typeof window === "undefined") return defaultLocale;
+    const stored = window.localStorage.getItem(I18N_STORAGE_KEY);
+    if (isSupportedLocale(stored)) return stored;
+
+    const path = window.location?.pathname ?? "";
+    if (path === "/en" || path.startsWith("/en/")) return "en";
+    return defaultLocale;
+  });
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    try {
+      window.localStorage.setItem(I18N_STORAGE_KEY, locale);
+    } catch {
+      // ignore
+    }
+
+    try {
+      document.documentElement.lang = locale;
+    } catch {
+      // ignore
+    }
+
+    try {
+      const maxAge = 60 * 60 * 24 * 365;
+      document.cookie = `${I18N_COOKIE_KEY}=${encodeURIComponent(locale)}; Path=/; Max-Age=${maxAge}; SameSite=Lax`;
+    } catch {
+      // ignore
+    }
+  }, [locale]);
 
   const api = useMemo<I18nApi>(() => {
-    const dict = dictionaries[locale] ?? dictionaries["pt-BR"];
+    const dict = DICTIONARIES[locale] ?? DICTIONARIES["pt-BR"];
     return {
       locale,
       setLocale,
-      t: (key: string) => dict[key] ?? key
+      t: (key: string, vars?: Record<string, string | number>) => {
+        const template = dict[key] ?? key;
+        if (!vars) return template;
+        return template.replace(/\{(\w+)\}/g, (_m, name: string) => {
+          const value = vars[name];
+          return value === undefined ? `{${name}}` : String(value);
+        });
+      }
     };
   }, [locale]);
 

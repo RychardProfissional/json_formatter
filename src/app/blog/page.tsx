@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { blogPosts } from "@/content/blog";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -35,27 +36,26 @@ export default function BlogIndexPage() {
           tempo perdido em tarefas repetitivas.
         </p>
         <p>
-          Quer ir direto para prática? Abra as <a className="font-semibold" href="/tools">ferramentas</a> e use os artigos
+          Quer ir direto para prática? Abra as <Link className="font-semibold" href="/tools">ferramentas</Link> e use os artigos
           como referência para entender erros comuns e padrões de uso.
         </p>
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         {blogPosts.map((p) => (
-          <a
+          <Link
             key={p.slug}
             href={`/blog/${p.slug}`}
             className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-blue-200 hover:bg-blue-50/30 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-blue-900 dark:hover:bg-slate-900"
           >
             <h2 className="text-lg font-bold">{p.title}</h2>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{p.description}</p>
-          </a>
+          </Link>
         ))}
       </div>
 
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",

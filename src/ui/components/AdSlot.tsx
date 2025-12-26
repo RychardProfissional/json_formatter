@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useConsent } from "@/ui/providers/ConsentProvider";
 import { SITE } from "@/application/siteConfig";
 
@@ -27,15 +27,11 @@ export function AdSlot({
   const rendered = useRef(false);
 
   const enabled = choice === "accept" || choice === "reject";
-  if (!slot) return null;
-
-  const client = useMemo(() => {
-    // Data client is inferred by the loaded script; keep attribute for clarity.
-    return SITE.adsenseClient;
-  }, []);
+  const client = SITE.adsenseClient;
 
   useEffect(() => {
     if (!enabled) return;
+    if (!slot) return;
     if (rendered.current) return;
 
     const ins = insRef.current as unknown as HTMLElement | null;
@@ -50,10 +46,9 @@ export function AdSlot({
         return;
       }
       try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).adsbygoogle.push({});
+        (window as unknown as { adsbygoogle?: unknown[] }).adsbygoogle =
+          (window as unknown as { adsbygoogle?: unknown[] }).adsbygoogle || [];
+        (window as unknown as { adsbygoogle?: unknown[] }).adsbygoogle?.push({});
         rendered.current = true;
       } catch {
         // ignore
@@ -61,23 +56,19 @@ export function AdSlot({
     };
 
     tryRender(8);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled, slot]);
 
   if (!enabled) return null;
+  if (!slot) return null;
 
   return (
     <div className={className} style={{ minHeight }}>
       <ins
         ref={insRef}
         className="adsbygoogle block w-full"
-        // eslint-disable-next-line react/no-unknown-property
         data-ad-client={client}
-        // eslint-disable-next-line react/no-unknown-property
         data-ad-slot={slot}
-        // eslint-disable-next-line react/no-unknown-property
         data-ad-format="auto"
-        // eslint-disable-next-line react/no-unknown-property
         data-full-width-responsive="true"
       />
     </div>

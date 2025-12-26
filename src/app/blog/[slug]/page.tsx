@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost } from "@/content/blog";
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 export function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
@@ -45,9 +46,9 @@ export default async function BlogPostPage({ params }: { params: ParamsInput }) 
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <a href="/blog" className="text-sm font-semibold text-blue-700 hover:underline dark:text-blue-300">
+      <Link href="/blog" className="text-sm font-semibold text-blue-700 hover:underline dark:text-blue-300">
         ← Voltar
-      </a>
+      </Link>
 
       <h1 className="mt-3 text-3xl font-extrabold tracking-tight">{post.title}</h1>
       <p className="mt-3 text-slate-600 dark:text-slate-300">{post.ogDescription}</p>

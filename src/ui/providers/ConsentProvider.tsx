@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState, useSyncExternalStore } from "react";
 import Script from "next/script";
+import Link from "next/link";
 import { CONSENT_STORAGE_KEY, type ConsentChoice, type ConsentState } from "@/application/consent";
 import { SITE } from "@/application/siteConfig";
 import { BrowserStorage } from "@/infra/browser/storage";
+import { useI18n } from "@/ui/providers/I18nProvider";
 
 type ConsentContextValue = {
   choice: ConsentChoice | null;
@@ -40,17 +42,31 @@ function writeStored(storage: BrowserStorage, choice: ConsentChoice) {
 
 export function ConsentProvider({ children }: { children: React.ReactNode }) {
   const storage = useMemo(() => new BrowserStorage(), []);
-  const [choice, setChoice] = useState<ConsentChoice | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const stored = readStored(storage);
-    if (!stored) {
-      setIsOpen(true);
-      return;
-    }
-    setChoice(stored.choice);
-  }, [storage]);
+  const subscribe = useCallback((onStoreChange: () => void) => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key !== CONSENT_STORAGE_KEY) return;
+      onStoreChange();
+    };
+    const onLocal = () => onStoreChange();
+
+    window.addEventListener("storage", onStorage);
+    window.addEventListener("rt:consent", onLocal);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("rt:consent", onLocal);
+    };
+  }, []);
+
+  const storedChoice = useSyncExternalStore<ConsentChoice | null | undefined>(
+    subscribe,
+    () => readStored(storage)?.choice ?? null,
+    () => undefined
+  );
+
+  const choice = storedChoice ?? null;
+  const shouldShowBanner = isOpen || storedChoice === null;
 
   const api = useMemo<ConsentContextValue>(
     () => ({
@@ -58,13 +74,13 @@ export function ConsentProvider({ children }: { children: React.ReactNode }) {
       openPreferences: () => setIsOpen(true),
       accept: () => {
         writeStored(storage, "accept");
-        setChoice("accept");
         setIsOpen(false);
+        window.dispatchEvent(new Event("rt:consent"));
       },
       reject: () => {
         writeStored(storage, "reject");
-        setChoice("reject");
         setIsOpen(false);
+        window.dispatchEvent(new Event("rt:consent"));
       }
     }),
     [choice, storage]
@@ -116,26 +132,27 @@ export function ConsentProvider({ children }: { children: React.ReactNode }) {
 
       {children}
 
-      {isOpen ? <ConsentBanner /> : null}
+      {shouldShowBanner ? <ConsentBanner /> : null}
     </ConsentContext.Provider>
   );
 }
 
 function ConsentBanner() {
   const { accept, reject } = useConsent();
+  const { t } = useI18n();
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 p-4 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
       <div className="mx-auto flex max-w-5xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="text-sm font-semibold">Privacidade e cookies</p>
+          <p className="text-sm font-semibold">{t("consent.title")}</p>
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            Usamos cookies/tecnologias semelhantes para exibir anúncios e medir uso do site.
+            {t("consent.body")}
           </p>
           <p className="text-sm">
-            <a className="text-blue-700 hover:underline dark:text-blue-300" href="/politica-de-privacidade">
-              Ver política
-            </a>
+            <Link className="text-blue-700 hover:underline dark:text-blue-300" href="/politica-de-privacidade">
+              {t("consent.viewPolicy")}
+            </Link>
           </p>
         </div>
         <div className="flex gap-2">
@@ -144,14 +161,14 @@ function ConsentBanner() {
             onClick={reject}
             className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-900"
           >
-            Recusar
+            {t("consent.reject")}
           </button>
           <button
             type="button"
             onClick={accept}
             className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
           >
-            Aceitar
+            {t("consent.accept")}
           </button>
         </div>
       </div>

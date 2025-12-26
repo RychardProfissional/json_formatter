@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import imageCompression from "browser-image-compression";
+import { useI18n } from "@/ui/providers/I18nProvider";
 
 function formatBytes(bytes: number): string {
   if (!Number.isFinite(bytes) || bytes <= 0) return "0 B";
@@ -24,6 +25,7 @@ function isSupportedImage(file: File): boolean {
 }
 
 export function ImageCompressor() {
+  const { t } = useI18n();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [dragActive, setDragActive] = useState(false);
@@ -71,7 +73,7 @@ export function ImageCompressor() {
     if (!first) return;
 
     if (!isSupportedImage(first)) {
-      setError("Formato não suportado. Envie PNG, JPG/JPEG ou WebP.");
+      setError(t("tools.image.compressor.error.unsupported"));
       setFile(null);
       setCompressed(null);
       return;
@@ -98,7 +100,7 @@ export function ImageCompressor() {
       const result = await imageCompression(file, options);
       setCompressed(result);
     } catch {
-      setError("Não foi possível comprimir a imagem. Tente novamente com outro arquivo.");
+      setError(t("tools.image.compressor.error.failed"));
       setCompressed(null);
     } finally {
       setCompressing(false);
@@ -125,14 +127,14 @@ export function ImageCompressor() {
     <div>
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <h2 className="text-xl font-bold">Comprimir imagem</h2>
+          <h2 className="text-xl font-bold">{t("tools.image.compressor.title")}</h2>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-            Escolha um arquivo e ajuste a qualidade. A compressão acontece no navegador.
+            {t("tools.image.compressor.subtitle")}
           </p>
         </div>
 
         <div className="w-full md:w-80">
-          <label className="block text-sm font-semibold">Qualidade: {quality}%</label>
+          <label className="block text-sm font-semibold">{t("tools.image.compressor.quality", { quality })}</label>
           <input
             className="mt-2 w-full"
             type="range"
@@ -141,7 +143,7 @@ export function ImageCompressor() {
             step={1}
             value={quality}
             onChange={(e) => setQuality(Number(e.target.value))}
-            aria-label="Qualidade"
+            aria-label={t("tools.image.compressor.qualityAria")}
           />
         </div>
       </div>
@@ -183,24 +185,24 @@ export function ImageCompressor() {
           onChange={(e) => onFiles(e.target.files)}
         />
 
-        <p className="text-slate-700 dark:text-slate-200">Arraste e solte a imagem aqui</p>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">PNG, JPG/JPEG ou WebP</p>
+  <p className="text-slate-700 dark:text-slate-200">{t("tools.image.compressor.dropHere")}</p>
+  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t("tools.image.compressor.supportedTypes")}</p>
 
         <button
           type="button"
           className="mt-4 rounded-xl bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700"
           onClick={pickFile}
         >
-          Selecionar arquivo
+          {t("tools.image.compressor.selectFile")}
         </button>
 
         {file ? (
           <div className="mt-4 text-sm text-slate-600 dark:text-slate-300">
             <p>
-              <span className="font-semibold">Arquivo:</span> {file.name}
+              <span className="font-semibold">{t("tools.image.compressor.fileLabel")}:</span> {file.name}
             </p>
             <p>
-              <span className="font-semibold">Tamanho original:</span> {formatBytes(originalSize)}
+              <span className="font-semibold">{t("tools.image.compressor.originalSizeLabel")}:</span> {formatBytes(originalSize)}
             </p>
           </div>
         ) : null}
@@ -215,7 +217,7 @@ export function ImageCompressor() {
           onClick={compress}
           disabled={!file || compressing}
         >
-          {compressing ? "Comprimindo…" : "Comprimir"}
+          {compressing ? t("tools.image.compressor.action.compressing") : t("tools.image.compressor.action.compress")}
         </button>
 
         <button
@@ -224,37 +226,36 @@ export function ImageCompressor() {
           onClick={download}
           disabled={!compressed}
         >
-          Download imagem comprimida
+          {t("tools.image.compressor.action.download")}
         </button>
       </div>
 
       {compressed ? (
         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-            <h3 className="font-bold">Antes</h3>
+            <h3 className="font-bold">{t("tools.image.compressor.preview.before")}</h3>
             {originalUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={originalUrl} alt="Prévia antes" className="mt-3 max-h-80 w-full rounded-xl object-contain" />
+              <img src={originalUrl} alt={t("tools.image.compressor.preview.beforeAlt")} className="mt-3 max-h-80 w-full rounded-xl object-contain" />
             ) : null}
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-            <h3 className="font-bold">Depois</h3>
+            <h3 className="font-bold">{t("tools.image.compressor.preview.after")}</h3>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-              <span className="font-semibold">Tamanho comprimido:</span> {formatBytes(compressedSize)}
-              {savingsPct !== null ? <span> ({savingsPct}% menor)</span> : null}
+              <span className="font-semibold">{t("tools.image.compressor.compressedSizeLabel")}:</span> {formatBytes(compressedSize)}
+              {savingsPct !== null ? <span> {t("tools.image.compressor.savings", { pct: savingsPct })}</span> : null}
             </p>
             {compressedUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={compressedUrl} alt="Prévia depois" className="mt-3 max-h-80 w-full rounded-xl object-contain" />
+              <img src={compressedUrl} alt={t("tools.image.compressor.preview.afterAlt")} className="mt-3 max-h-80 w-full rounded-xl object-contain" />
             ) : null}
           </div>
         </div>
       ) : null}
 
       <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
-        Dica: se o arquivo já estiver otimizado, a redução pode ser pequena. Para fotos, reduzir a qualidade costuma ter
-        mais impacto do que redimensionar.
+        {t("tools.image.compressor.tip")}
       </p>
     </div>
   );

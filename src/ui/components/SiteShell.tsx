@@ -4,6 +4,8 @@ import React from "react";
 import { useI18n } from "@/ui/providers/I18nProvider";
 import { ThemeToggle } from "@/ui/components/ThemeToggle";
 import { CookiePrefsLink } from "@/ui/components/CookiePrefsLink";
+import { LanguageToggle } from "@/ui/components/LanguageToggle";
+import { useLocalePath } from "@/ui/hooks/useLocalePath";
 
 export function SiteShell({
   children
@@ -21,13 +23,14 @@ export function SiteShell({
 
 function Header() {
   const { t } = useI18n();
+  const lp = useLocalePath();
 
   const nav = [
-    { href: "/", label: t("nav.home") },
-    { href: "/tools", label: t("nav.tools") },
-    { href: "/blog", label: t("nav.blog") },
-    { href: "/sobre", label: t("nav.about") },
-    { href: "/contato", label: t("nav.contact") }
+    { href: lp("/"), label: t("nav.home") },
+    { href: lp("/tools"), label: t("nav.tools") },
+    { href: lp("/blog"), label: t("nav.blog") },
+    { href: lp("/sobre"), label: t("nav.about") },
+    { href: lp("/contato"), label: t("nav.contact") }
   ];
 
   return (
@@ -44,7 +47,10 @@ function Header() {
             </a>
           ))}
         </nav>
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          <LanguageToggle />
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );
@@ -52,22 +58,23 @@ function Header() {
 
 function Footer() {
   const { t } = useI18n();
+  const lp = useLocalePath();
 
   return (
     <footer className="border-t border-slate-200 py-10 dark:border-slate-800">
       <div className="mx-auto max-w-5xl px-4">
         <p className="text-sm text-slate-600 dark:text-slate-300">{t("footer.tagline")}</p>
         <div className="mt-4 flex flex-wrap gap-3 text-sm">
-          <a href="/politica-de-privacidade" className="font-semibold">
+          <a href={lp("/politica-de-privacidade")} className="font-semibold">
             {t("legal.privacy")}
           </a>
-          <a href="/termos-de-uso" className="font-semibold">
+          <a href={lp("/termos-de-uso")} className="font-semibold">
             {t("legal.terms")}
           </a>
-          <a href="/sobre" className="font-semibold">
+          <a href={lp("/sobre")} className="font-semibold">
             {t("nav.about")}
           </a>
-          <a href="/contato" className="font-semibold">
+          <a href={lp("/contato")} className="font-semibold">
             {t("nav.contact")}
           </a>
           <CookiePrefsLink />

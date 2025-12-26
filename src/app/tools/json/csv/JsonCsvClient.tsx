@@ -4,14 +4,19 @@ import { useMemo, useState } from "react";
 import { csvToJson, jsonToCsv, parseJson } from "@/domain/tools";
 import { AdSlot } from "@/ui/components/AdSlot";
 import { SITE } from "@/application/siteConfig";
+import { useI18n } from "@/ui/providers/I18nProvider";
+import { useLocalePath } from "@/ui/hooks/useLocalePath";
 
 export function JsonCsvClient() {
+  const { t } = useI18n();
+  const lp = useLocalePath();
+
   const [jsonInput, setJsonInput] = useState("");
   const [csvOutput, setCsvOutput] = useState("");
   const [csvInput, setCsvInput] = useState("");
   const [jsonOutput, setJsonOutput] = useState("");
 
-  const [status, setStatus] = useState<string>("Converta JSON→CSV ou CSV→JSON.");
+  const [status, setStatus] = useState<string>(() => t("tools.json.csv.status.idle"));
   const [statusKind, setStatusKind] = useState<"ok" | "error" | "">("");
 
   const isJsonEmpty = useMemo(() => jsonInput.trim().length === 0, [jsonInput]);
@@ -37,9 +42,9 @@ export function JsonCsvClient() {
 
     try {
       setCsvOutput(jsonToCsv(parsed.value));
-      setOk("Convertido para CSV.");
+      setOk(t("tools.json.csv.status.toCsv"));
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Falha ao converter para CSV.");
+      setErr(e instanceof Error ? e.message : t("tools.json.csv.error.toCsv"));
       setCsvOutput("");
     }
   }
@@ -48,17 +53,19 @@ export function JsonCsvClient() {
     try {
       const value = csvToJson(csvInput);
       setJsonOutput(JSON.stringify(value, null, 2));
-      setOk("Convertido para JSON.");
+      setOk(t("tools.json.csv.status.toJson"));
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Falha ao converter para JSON.");
+      setErr(e instanceof Error ? e.message : t("tools.json.csv.error.toJson"));
       setJsonOutput("");
     }
   }
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">JSON ↔ CSV</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">Conversor simples (mantém o comportamento do legado).</p>
+      <h1 className="text-3xl font-extrabold tracking-tight">{t("tools.json.csv.title")}</h1>
+      <p className="mt-3 text-slate-600 dark:text-slate-300">
+        {t("tools.json.csv.subtitle")}
+      </p>
 
       <AdSlot
         slot={SITE.adsenseSlots.tools}
@@ -81,8 +88,10 @@ export function JsonCsvClient() {
       </div>
 
       <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <h2 className="text-lg font-bold">JSON → CSV</h2>
-        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Use um objeto ou um array de objetos.</p>
+        <h2 className="text-lg font-bold">{t("tools.json.csv.section.jsonToCsvTitle")}</h2>
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+          {t("tools.json.csv.jsonToCsv.help")}
+        </p>
 
         <div className="mt-4 flex flex-wrap gap-3">
           <button
@@ -91,7 +100,7 @@ export function JsonCsvClient() {
             disabled={isJsonEmpty}
             className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Converter
+            {t("common.convert")}
           </button>
         </div>
 
@@ -113,8 +122,10 @@ export function JsonCsvClient() {
       </section>
 
       <section className="mt-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <h2 className="text-lg font-bold">CSV → JSON</h2>
-        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Parser simples (não cobre casos complexos com vírgulas dentro de aspas).</p>
+        <h2 className="text-lg font-bold">{t("tools.json.csv.section.csvToJsonTitle")}</h2>
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+          {t("tools.json.csv.csvToJson.help")}
+        </p>
 
         <div className="mt-4 flex flex-wrap gap-3">
           <button
@@ -123,7 +134,7 @@ export function JsonCsvClient() {
             disabled={isCsvEmpty}
             className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Converter
+            {t("common.convert")}
           </button>
         </div>
 
@@ -145,28 +156,33 @@ export function JsonCsvClient() {
       </section>
 
       <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Como usar o conversor</h2>
-        <p>
-          Para <strong>JSON → CSV</strong>, cole um objeto ou um array de objetos. Para <strong>CSV → JSON</strong>, cole um CSV simples com
-          cabeçalho na primeira linha. O resultado aparece ao lado e pode ser copiado.
-        </p>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+          {t("tools.json.csv.section.how")}
+        </h2>
+        <p>{t("tools.json.csv.how.body")}</p>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Dicas e limitações</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+          {t("tools.json.csv.section.tips")}
+        </h2>
         <ul className="list-disc space-y-2 pl-5">
-          <li>Para arrays, todos os itens devem ter estrutura parecida (campos). Campos ausentes podem virar valores vazios.</li>
-          <li>O parser de CSV aqui é simples: casos complexos (vírgulas dentro de aspas, escapes avançados) podem falhar.</li>
+          <li>{t("tools.json.csv.tips.li1")}</li>
+          <li>{t("tools.json.csv.tips.li2")}</li>
           <li>
-            Se o JSON estiver inválido, valide antes com o <a className="font-semibold" href="/tools/json/validator">Validador JSON</a>.
+            {t("tools.json.csv.tips.li3.before")}
+            <a className="font-semibold" href={lp("/tools/json/validator")}>
+              {t("tools.json.csv.tips.li3.link")}
+            </a>
+            {t("tools.json.csv.tips.li3.after")}
           </li>
         </ul>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("common.privacyTitle")}</h2>
         <p>
-          O conteúdo é processado no navegador. Evite colar dados sensíveis. Veja{" "}
-          <a className="font-semibold" href="/politica-de-privacidade">
-            Política de Privacidade
+          {t("tools.json.csv.privacy.before")}
+          <a className="font-semibold" href={lp("/politica-de-privacidade")}>
+            {t("common.privacyPolicy")}
           </a>
-          .
+          {t("tools.json.csv.privacy.after")}
         </p>
       </section>
     </main>

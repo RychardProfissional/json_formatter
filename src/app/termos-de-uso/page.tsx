@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
+import { PT_BR } from "@/languages/pt-br";
 
 export const metadata: Metadata = {
-  title: "Termos de Uso",
-  description:
-    "Termos de Uso da Respawn Tech: regras, limitações, responsabilidade e uso das ferramentas.",
+  title: PT_BR["termsPage.meta.title"],
+  description: PT_BR["termsPage.meta.description"],
   alternates: { canonical: "/termos-de-uso" },
   openGraph: {
     type: "website",
-    title: "Termos de Uso | Respawn Tech",
-    description: "Termos de Uso da Respawn Tech: regras, limitações, responsabilidade e uso das ferramentas.",
+    title: PT_BR["termsPage.meta.ogTitle"],
+    description: PT_BR["termsPage.meta.description"],
     url: "https://respawntech.dev/termos-de-uso",
     images: ["/og.svg"]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Termos de Uso | Respawn Tech",
-    description: "Termos de Uso da Respawn Tech: regras, limitações, responsabilidade e uso das ferramentas.",
+    title: PT_BR["termsPage.meta.ogTitle"],
+    description: PT_BR["termsPage.meta.description"],
     images: ["/og.svg"]
   }
 };
@@ -23,33 +23,33 @@ export const metadata: Metadata = {
 export default function TermosDeUsoPage() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">Termos de Uso</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight">{PT_BR["termsPage.h1"]}</h1>
       <p className="mt-3 text-slate-600 dark:text-slate-300">
-        Regras simples para uso das ferramentas e limites de responsabilidade.
+        {PT_BR["termsPage.subtitle"]}
       </p>
 
       <div className="mt-8 space-y-4">
         {[
           {
-            title: "1) Uso do serviço",
-            body: "As ferramentas e conteúdos são fornecidos “no estado em que se encontram”, para ajudar a formatar, validar e transformar dados e apoiar tarefas técnicas. Você pode usar para fins pessoais ou profissionais."
+            title: PT_BR["termsPage.sections.1.title"],
+            body: PT_BR["termsPage.sections.1.body"]
           },
           {
-            title: "2) Dados inseridos",
-            body: "O processamento ocorre no seu navegador. Ainda assim, evite colar dados sensíveis em qualquer site sem avaliar o risco do seu ambiente. Se houver anúncios/analytics, o carregamento pode envolver terceiros após seu consentimento."
+            title: PT_BR["termsPage.sections.2.title"],
+            body: PT_BR["termsPage.sections.2.body"]
           },
           {
-            title: "3) Limitações",
-            body: "Não garantimos disponibilidade contínua, ausência total de erros, nem adequação para um propósito específico. Conversões (ex.: CSV) podem ter limitações de compatibilidade conforme o formato do seu arquivo."
+            title: PT_BR["termsPage.sections.3.title"],
+            body: PT_BR["termsPage.sections.3.body"]
           },
           {
-            title: "4) Responsabilidade",
-            body: "Você é responsável por revisar o resultado antes de usar em produção. Não nos responsabilizamos por perdas, danos ou consequências decorrentes do uso das ferramentas."
+            title: PT_BR["termsPage.sections.4.title"],
+            body: PT_BR["termsPage.sections.4.body"]
           },
           {
-            title: "5) Contato",
-            body: "Para dúvidas, acesse a página de Contato.",
-            link: { href: "/contato", label: "Ir para contato" }
+            title: PT_BR["termsPage.sections.5.title"],
+            body: PT_BR["termsPage.sections.5.body"],
+            link: { href: "/contato", label: PT_BR["termsPage.sections.5.linkLabel"] }
           }
         ].map((s) => (
           <section

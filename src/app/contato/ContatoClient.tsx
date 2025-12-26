@@ -1,19 +1,24 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useI18n } from "@/ui/providers/I18nProvider";
+import { useLocalePath } from "@/ui/hooks/useLocalePath";
 
 export function ContatoClient() {
+  const { locale, t } = useI18n();
+  const lp = useLocalePath();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<string>("Preencha os campos para enviar.");
+  const [status, setStatus] = useState<string>(() => t("contact.status.idle"));
   const [statusKind, setStatusKind] = useState<"ok" | "error" | "">("");
 
   const mailtoHref = useMemo(() => {
-    const subject = "Respawn Tech — contato";
-    const body = `Nome: ${name}\nE-mail: ${email}\n\n${message}`;
+    const subject = t("contact.mail.subject");
+    const body = t("contact.mail.body", { name, email, message });
     return `mailto:rychard.professional@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }, [name, email, message]);
+  }, [t, name, email, message]);
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -24,41 +29,45 @@ export function ContatoClient() {
 
     if (!n || !em || !msg) {
       setStatusKind("error");
-      setStatus("Preencha nome, e-mail e mensagem.");
+      setStatus(t("contact.status.missingFields"));
       return;
     }
 
     if (!/^\S+@\S+\.\S+$/.test(em)) {
       setStatusKind("error");
-      setStatus("Informe um e-mail válido.");
+      setStatus(t("contact.status.invalidEmail"));
       return;
     }
 
     setStatusKind("ok");
-    setStatus("Abrindo seu aplicativo de e-mail…");
+    setStatus(t("contact.status.openingEmail"));
     window.location.href = mailtoHref;
   }
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">Contato</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">Dúvidas, feedback e sugestões de ferramentas.</p>
+      <h1 className="text-3xl font-extrabold tracking-tight">{t("contact.title")}</h1>
+      <p className="mt-3 text-slate-600 dark:text-slate-300">
+        {t("contact.subtitle")}
+      </p>
 
       <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-          <h2 className="text-lg font-bold">E-mail</h2>
+          <h2 className="text-lg font-bold">{t("contact.emailTitle")}</h2>
           <p className="mt-2 text-slate-600 dark:text-slate-300">
             <a href="mailto:rychard.professional@gmail.com">rychard.professional@gmail.com</a>
           </p>
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Sem SLA garantido.</p>
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+            {t("contact.noSla")}
+          </p>
         </section>
 
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-          <h2 className="text-lg font-bold">Formulário rápido</h2>
+          <h2 className="text-lg font-bold">{t("contact.formTitle")}</h2>
           <form onSubmit={onSubmit} className="mt-3 space-y-3">
             <div>
               <label className="text-sm font-semibold" htmlFor="name">
-                Seu nome
+                {t("contact.nameLabel")}
               </label>
               <input
                 id="name"
@@ -70,7 +79,7 @@ export function ContatoClient() {
             </div>
             <div>
               <label className="text-sm font-semibold" htmlFor="email">
-                Seu e-mail
+                {t("contact.emailLabel")}
               </label>
               <input
                 id="email"
@@ -83,7 +92,7 @@ export function ContatoClient() {
             </div>
             <div>
               <label className="text-sm font-semibold" htmlFor="message">
-                Mensagem
+                {t("contact.messageLabel")}
               </label>
               <textarea
                 id="message"
@@ -96,13 +105,13 @@ export function ContatoClient() {
 
             <div className="flex flex-wrap gap-2">
               <button type="submit" className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">
-                Enviar
+                {t("contact.send")}
               </button>
               <a
                 className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold hover:bg-slate-100 dark:border-slate-800 dark:hover:bg-slate-900"
                 href={mailtoHref}
               >
-                Enviar via e-mail
+                {t("contact.sendViaEmail")}
               </a>
             </div>
 
@@ -122,7 +131,9 @@ export function ContatoClient() {
       </div>
 
       <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
-        Para informações sobre cookies, anúncios e analytics, veja a <a href="/politica-de-privacidade">Política de Privacidade</a>.
+        {t("contact.privacy.before")}
+        <a href={lp("/politica-de-privacidade")}>{t("common.privacyPolicy")}</a>
+        {t("contact.privacy.after")}
       </p>
     </main>
   );

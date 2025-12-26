@@ -1,33 +1,36 @@
 import type { Metadata } from "next";
 import { SITE } from "@/application/siteConfig";
+import { PT_BR } from "@/languages/pt-br";
 
 export const metadata: Metadata = {
-  title: "Ferramentas de Imagem | Respawn Tech",
-  description: "Ferramentas online para compressão e manipulação de imagens, 100% no navegador.",
+  title: PT_BR["tools.image.index.meta.title"],
+  description: PT_BR["tools.image.index.meta.description"],
   alternates: { canonical: `${SITE.url}/tools/image` },
   openGraph: {
     type: "website",
     url: `${SITE.url}/tools/image`,
-    title: "Ferramentas de Imagem | Respawn Tech",
-    description: "Ferramentas online para compressão e manipulação de imagens, 100% no navegador.",
+    title: PT_BR["tools.image.index.meta.title"],
+    description: PT_BR["tools.image.index.meta.description"],
     siteName: "Respawn Tech",
     images: [{ url: `${SITE.url}/og.svg`, width: 1200, height: 630, alt: "Respawn Tech" }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ferramentas de Imagem | Respawn Tech",
-    description: "Ferramentas online para compressão e manipulação de imagens, 100% no navegador.",
+    title: PT_BR["tools.image.index.meta.title"],
+    description: PT_BR["tools.image.index.meta.description"],
     images: [`${SITE.url}/og.svg`]
   }
 };
 
 export default function ToolsImagePage() {
-  const tools = [{ href: "/tools/image/compressor", name: "Compressor de Imagens", desc: "Reduza PNG, JPG e WebP no navegador." }];
+  const tools = [
+    { href: "/tools/image/compressor", name: PT_BR["tools.image.index.cards.compressor.title"], desc: PT_BR["tools.image.index.cards.compressor.desc"] }
+  ];
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">Ferramentas de Imagem</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">Ferramentas rápidas para trabalhar com imagens, sem enviar arquivos.</p>
+      <h1 className="text-3xl font-extrabold tracking-tight">{PT_BR["tools.image.index.title"]}</h1>
+      <p className="mt-3 text-slate-600 dark:text-slate-300">{PT_BR["tools.image.index.subtitle"]}</p>
 
       <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         {tools.map((t) => (
@@ -43,7 +46,9 @@ export default function ToolsImagePage() {
       </div>
 
       <p className="mt-10 text-sm text-slate-500 dark:text-slate-400">
-        Voltar para <a href="/tools">/tools</a>.
+        {PT_BR["tools.image.index.backTo.before"]}
+        <a href="/tools">{PT_BR["tools.image.index.backTo.link"]}</a>
+        {PT_BR["tools.image.index.backTo.after"]}
       </p>
     </main>
   );

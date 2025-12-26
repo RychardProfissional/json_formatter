@@ -7,13 +7,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --max-warnings=0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "browser-image-compression": "^2.0.2",
+    "lint": "^0.8.19",
     "next": "^16.1.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"
