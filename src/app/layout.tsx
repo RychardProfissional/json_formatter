@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   },
   description:
     "Respawn Tech é uma plataforma de ferramentas online gratuitas para programadores, estudantes e empreendedores.",
+  icons: {
+    icon: [
+      {
+        url: "/favicon.ico",
+        type: "image/x-icon"
+      }
+    ]
+  },
   alternates: { canonical: "/" },
   other: {
     "google-adsense-account": SITE.adsenseClient
