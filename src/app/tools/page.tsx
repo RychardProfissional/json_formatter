@@ -27,12 +27,13 @@ export const metadata: Metadata = {
 export default function ToolsIndexPage() {
   // Ad slots are optional; configure in SITE.adsenseSlots.
   const tools = [
-    { href: "/tools/json-formatter", name: "Formatador de JSON", desc: "Formatar, compactar e baixar JSON." },
-    { href: "/tools/json-validator", name: "Validador JSON", desc: "Checar se um JSON está válido." },
-    { href: "/tools/json-minify", name: "JSON Minify", desc: "Compactar JSON removendo espaços." },
-    { href: "/tools/json-escape", name: "Escape / Unescape", desc: "Escapar strings para JSON e reverter." },
-    { href: "/tools/json-csv", name: "JSON ↔ CSV", desc: "Converter JSON↔CSV simples." },
-    { href: "/tools/jsonl-prettify", name: "Prettify JSONL", desc: "Embelezar JSON Lines (um JSON por linha)." }
+    { href: "/tools/json/formatter", name: "Formatador de JSON", desc: "Formatar, compactar e baixar JSON." },
+    { href: "/tools/json/validator", name: "Validador JSON", desc: "Checar se um JSON está válido." },
+    { href: "/tools/json/minify", name: "JSON Minify", desc: "Compactar JSON removendo espaços." },
+    { href: "/tools/json/escape", name: "Escape / Unescape", desc: "Escapar strings para JSON e reverter." },
+    { href: "/tools/json/csv", name: "JSON ↔ CSV", desc: "Converter JSON↔CSV simples." },
+    { href: "/tools/json/jsonl-prettify", name: "Prettify JSONL", desc: "Embelezar JSON Lines (um JSON por linha)." },
+    { href: "/tools/image/compressor", name: "Compressor de Imagens", desc: "Reduza PNG, JPG e WebP no navegador." }
   ];
 
   return (
@@ -49,8 +50,8 @@ export default function ToolsIndexPage() {
           no navegador — ideal para depurar APIs, integrações e arquivos exportados.
         </p>
         <p>
-          Se você está começando, recomendamos abrir o <a className="font-semibold" href="/tools/json-formatter">Formatador de JSON</a> e o{" "}
-          <a className="font-semibold" href="/tools/json-validator">Validador JSON</a>.
+          Se você está começando, recomendamos abrir o <a className="font-semibold" href="/tools/json/formatter">Formatador de JSON</a> e o{" "}
+          <a className="font-semibold" href="/tools/json/validator">Validador JSON</a>.
         </p>
       </div>
 

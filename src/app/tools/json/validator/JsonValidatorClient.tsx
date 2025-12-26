@@ -72,7 +72,7 @@ export function JsonValidatorClient() {
       </div>
 
       <p className="mt-8 text-sm text-slate-500 dark:text-slate-400">
-        Dica: se estiver inválido, use o <a className="font-semibold" href="/tools/json-formatter">formatador</a> para facilitar a correção.
+        Dica: se estiver inválido, use o <a className="font-semibold" href="/tools/json/formatter">formatador</a> para facilitar a correção.
       </p>
 
       <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
@@ -88,14 +88,17 @@ export function JsonValidatorClient() {
           <li>Troque aspas simples por aspas duplas.</li>
           <li>Remova vírgula sobrando após o último item.</li>
           <li>
-            Use o <a className="font-semibold" href="/tools/json-formatter">Formatador de JSON</a> para reorganizar e enxergar o problema.
+            Use o <a className="font-semibold" href="/tools/json/formatter">Formatador de JSON</a> para reorganizar e enxergar o problema.
           </li>
         </ul>
 
         <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
         <p>
           O conteúdo colado é processado no navegador. Evite colar segredos. Veja detalhes em{" "}
-          <a className="font-semibold" href="/politica-de-privacidade">Política de Privacidade</a>.
+          <a className="font-semibold" href="/politica-de-privacidade">
+            Política de Privacidade
+          </a>
+          .
         </p>
       </section>
     </main>

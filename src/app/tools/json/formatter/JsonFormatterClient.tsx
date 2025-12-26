@@ -190,8 +190,8 @@ export function JsonFormatterClient() {
       </div>
 
       <p className="mt-8 text-sm text-slate-500 dark:text-slate-400">
-        Ver também: <a className="font-semibold" href="/tools/json-validator">validador</a> e{" "}
-        <a className="font-semibold" href="/tools/json-minify">minify</a>.
+        Ver também: <a className="font-semibold" href="/tools/json/validator">validador</a> e{" "}
+        <a className="font-semibold" href="/tools/json/minify">minify</a>.
       </p>
 
       <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
@@ -212,8 +212,10 @@ export function JsonFormatterClient() {
             <strong>Aspas simples:</strong> chaves e strings exigem aspas duplas.
           </li>
           <li>
-            <strong>Chaves/colchetes:</strong> verifique se <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"{"}</code> fecha com{" "}
-            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"}"}</code> e <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"["}</code> fecha com{" "}
+            <strong>Chaves/colchetes:</strong> verifique se{" "}
+            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"{"}</code> fecha com{" "}
+            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"}"}</code> e{" "}
+            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"["}</code> fecha com{" "}
             <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"]"}</code>.
           </li>
         </ul>
@@ -221,7 +223,11 @@ export function JsonFormatterClient() {
         <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
         <p>
           O processamento acontece no seu navegador. Evite colar segredos (tokens, senhas, chaves). Para detalhes sobre
-          anúncios/cookies, leia a <a className="font-semibold" href="/politica-de-privacidade">Política de Privacidade</a>.
+          anúncios/cookies, leia a{" "}
+          <a className="font-semibold" href="/politica-de-privacidade">
+            Política de Privacidade
+          </a>
+          .
         </p>
       </section>
     </main>

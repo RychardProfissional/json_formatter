@@ -131,7 +131,7 @@ function renderPost(slug: string): ReactNode {
 
           <H2>6) Faça em segundos</H2>
           <P>
-            Para um fluxo rápido no dia a dia: <a className="font-semibold text-blue-700 hover:underline dark:text-blue-300" href="/tools/json-formatter">abrir o Formatador de JSON</a>.
+            Para um fluxo rápido no dia a dia: <a className="font-semibold text-blue-700 hover:underline dark:text-blue-300" href="/tools/json/formatter">abrir o Formatador de JSON</a>.
           </P>
         </>
       );
@@ -219,7 +219,7 @@ function renderPost(slug: string): ReactNode {
             chaves/colchetes faltando e strings com caracteres não escapados.
           </P>
           <P>
-            <a className="font-semibold text-blue-700 hover:underline dark:text-blue-300" href="/tools/json-validator">
+            <a className="font-semibold text-blue-700 hover:underline dark:text-blue-300" href="/tools/json/validator">
               Abrir Validador JSON
             </a>
           </P>

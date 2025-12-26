@@ -1,11 +1,11 @@
 export default function HomePage() {
   const tools = [
-    { href: "/tools/json-formatter", name: "Formatador de JSON", desc: "Organiza, minifica e valida JSON direto no navegador." },
-    { href: "/tools/json-validator", name: "Validador JSON", desc: "Verifica se um JSON está válido e mostra mensagens de erro." },
-    { href: "/tools/json-minify", name: "JSON Minify", desc: "Compacta JSON removendo espaços e quebras de linha." },
-    { href: "/tools/json-escape", name: "Escape / Unescape", desc: "Transforma textos com \\n, \\t e aspas para strings JSON seguras." },
-    { href: "/tools/json-csv", name: "JSON ↔ CSV", desc: "Converte JSON para CSV e CSV simples para JSON." },
-    { href: "/tools/jsonl-prettify", name: "Prettify JSONL", desc: "Embeleza JSON Lines (um JSON por linha) em blocos legíveis." }
+    { href: "/tools/json/formatter", name: "Formatador de JSON", desc: "Organiza, minifica e valida JSON direto no navegador." },
+    { href: "/tools/json/validator", name: "Validador JSON", desc: "Verifica se um JSON está válido e mostra mensagens de erro." },
+    { href: "/tools/json/minify", name: "JSON Minify", desc: "Compacta JSON removendo espaços e quebras de linha." },
+    { href: "/tools/json/escape", name: "Escape / Unescape", desc: "Transforma textos com \\n, \\t e aspas para strings JSON seguras." },
+    { href: "/tools/json/csv", name: "JSON ↔ CSV", desc: "Converte JSON para CSV e CSV simples para JSON." },
+    { href: "/tools/json/jsonl-prettify", name: "Prettify JSONL", desc: "Embeleza JSON Lines (um JSON por linha) em blocos legíveis." }
   ];
 
   return (

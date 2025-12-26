@@ -49,12 +49,15 @@ Blog metadata list: `src/content/blog.ts`.
 
 ### Tools
 - `/tools` — tools index
-- `/tools/json-formatter`
-- `/tools/json-validator`
-- `/tools/json-minify`
-- `/tools/json-escape`
-- `/tools/json-csv`
-- `/tools/jsonl-prettify`
+- `/tools/image` — image tools index
+  - `/tools/image/compressor`
+- `/tools/json` — JSON tools index
+  - `/tools/json/formatter`
+  - `/tools/json/validator`
+  - `/tools/json/minify`
+  - `/tools/json/escape`
+  - `/tools/json/csv`
+  - `/tools/json/jsonl-prettify`
 
 Tool domain logic lives in `src/domain/tools/*` and is imported by the tool UI clients.
 
@@ -91,7 +94,7 @@ Tool domain logic lives in `src/domain/tools/*` and is imported by the tool UI c
 ## Adding a new tool
 1. Add pure logic (if needed) under `src/domain/tools/`.
 2. Export it via `src/domain/tools/index.ts`.
-3. Create route under `src/app/tools/<tool-slug>/page.tsx`.
+3. Create route under `src/app/tools/<category>/<tool-slug>/page.tsx`.
    - Keep `metadata` in the server `page.tsx`.
    - Put interactive code in a sibling `*Client.tsx` file with `"use client"`.
 4. Add the card to `src/app/tools/page.tsx`.
@@ -109,10 +112,12 @@ Tool domain logic lives in `src/domain/tools/*` and is imported by the tool UI c
 - There is no DB; everything is static or runs in the browser.
 
 ### Atualização 26/12/2025 – feature: Image Compressor
-- Criados arquivos:
-  - src/app/image-compressor/page.tsx
-  - src/app/image-compressor/components/ImageCompressor.tsx
-- Implementação: 100% client-side usando browser-image-compression (upload/drag-and-drop, qualidade, prévia, download)
-- SEO adicionado (SSR/SSG + FAQ em texto)
-- AdSense: blocos acima da dobra e após FAQ (via AdSlot, se habilitado por consentimento)
-- Sitemap/redirect: adicionada URL em src/app/sitemap.ts e normalização de /image-compressor/ em next.config.ts
+### Atualização 26/12/2025 – tools taxonomy + Image Compressor
+- Ferramentas passaram a ser categorizadas em:
+  - `/tools/image/*`
+  - `/tools/json/*`
+- Nova rota do compressor: `/tools/image/compressor` (100% client-side usando `browser-image-compression`)
+- SEO mantido (metadata + H1/descrição + FAQ SSR) e AdSense (blocos acima da dobra e após FAQ via `AdSlot` quando habilitado)
+- Compatibilidade mantida via redirects em `next.config.ts`:
+  - `/image-compressor` → `/tools/image/compressor`
+  - `/tools/json-formatter` etc. → `/tools/json/*`

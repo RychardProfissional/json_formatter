@@ -155,13 +155,18 @@ export function JsonCsvClient() {
         <ul className="list-disc space-y-2 pl-5">
           <li>Para arrays, todos os itens devem ter estrutura parecida (campos). Campos ausentes podem virar valores vazios.</li>
           <li>O parser de CSV aqui é simples: casos complexos (vírgulas dentro de aspas, escapes avançados) podem falhar.</li>
-          <li>Se o JSON estiver inválido, valide antes com o <a className="font-semibold" href="/tools/json-validator">Validador JSON</a>.</li>
+          <li>
+            Se o JSON estiver inválido, valide antes com o <a className="font-semibold" href="/tools/json/validator">Validador JSON</a>.
+          </li>
         </ul>
 
         <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
         <p>
           O conteúdo é processado no navegador. Evite colar dados sensíveis. Veja{" "}
-          <a className="font-semibold" href="/politica-de-privacidade">Política de Privacidade</a>.
+          <a className="font-semibold" href="/politica-de-privacidade">
+            Política de Privacidade
+          </a>
+          .
         </p>
       </section>
     </main>

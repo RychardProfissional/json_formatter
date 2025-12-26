@@ -31,7 +31,7 @@ export function ImageCompressor() {
   const [file, setFile] = useState<File | null>(null);
   const [compressing, setCompressing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [compressed, setCompressed] = useState<File | Blob | null>(null);
+  const [compressed, setCompressed] = useState<Blob | null>(null);
 
   const originalUrl = useMemo(() => {
     if (!file) return null;
@@ -56,7 +56,7 @@ export function ImageCompressor() {
   }, [compressedUrl]);
 
   const originalSize = file?.size ?? 0;
-  const compressedSize = compressed ? (compressed as Blob).size : 0;
+  const compressedSize = compressed?.size ?? 0;
 
   const savingsPct = useMemo(() => {
     if (!originalSize || !compressedSize) return null;
@@ -108,10 +108,9 @@ export function ImageCompressor() {
   const download = () => {
     if (!file || !compressed) return;
 
-    const blob = compressed as Blob;
-    const url = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(compressed);
 
-    const ext = extForMime(blob.type);
+    const ext = extForMime(compressed.type);
     const baseName = file.name.replace(/\.(png|jpg|jpeg|webp)$/i, "");
 
     const link = document.createElement("a");

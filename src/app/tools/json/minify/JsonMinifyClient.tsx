@@ -1,15 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { prettifyJsonl } from "@/domain/tools";
+import { minifyJson, parseJson } from "@/domain/tools";
 import { AdSlot } from "@/ui/components/AdSlot";
 import { SITE } from "@/application/siteConfig";
 
-export function JsonlPrettifyClient() {
+export function JsonMinifyClient() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
-  const [indent, setIndent] = useState<2 | 4 | 8>(2);
-  const [status, setStatus] = useState<string>("Cole um JSON por linha e clique em prettify.");
+  const [status, setStatus] = useState<string>("Cole um JSON e clique em minificar.");
   const [statusKind, setStatusKind] = useState<"ok" | "error" | "">("");
 
   const isEmpty = useMemo(() => input.trim().length === 0, [input]);
@@ -24,20 +23,31 @@ export function JsonlPrettifyClient() {
     setStatus(msg);
   }
 
-  function onPrettify() {
-    try {
-      setOutput(prettifyJsonl(input, indent));
-      setOk("JSONL formatado.");
-    } catch (e) {
-      setErr(e instanceof Error ? e.message : "Falha ao formatar JSONL.");
+  function onMinify() {
+    const parsed = parseJson(input);
+    if (!parsed.ok) {
+      setErr(parsed.errorMessage);
       setOutput("");
+      return;
+    }
+    setOutput(minifyJson(parsed.value));
+    setOk("JSON compactado.");
+  }
+
+  async function onCopy() {
+    if (!output.trim()) return;
+    try {
+      await navigator.clipboard.writeText(output);
+      setOk("Copiado.");
+    } catch {
+      setErr("Não foi possível copiar automaticamente.");
     }
   }
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">Prettify JSONL</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">Um JSON por linha → blocos legíveis (separados por linha em branco).</p>
+      <h1 className="text-3xl font-extrabold tracking-tight">JSON Minify</h1>
+      <p className="mt-3 text-slate-600 dark:text-slate-300">Compacte JSON removendo espaços e quebras de linha.</p>
 
       <AdSlot
         slot={SITE.adsenseSlots.tools}
@@ -45,30 +55,22 @@ export function JsonlPrettifyClient() {
         minHeight={250}
       />
 
-      <div className="mt-6 flex flex-wrap items-end gap-3">
-        <div>
-          <label className="text-sm font-semibold" htmlFor="indent">
-            Indentação
-          </label>
-          <select
-            id="indent"
-            value={indent}
-            onChange={(e) => setIndent(Number(e.target.value) as 2 | 4 | 8)}
-            className="mt-1 w-36 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none dark:border-slate-800 dark:bg-slate-900"
-          >
-            <option value={2}>2 espaços</option>
-            <option value={4}>4 espaços</option>
-            <option value={8}>8 espaços</option>
-          </select>
-        </div>
-
+      <div className="mt-6 flex flex-wrap gap-3">
         <button
           type="button"
-          onClick={onPrettify}
+          onClick={onMinify}
           disabled={isEmpty}
           className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Prettify
+          Minificar
+        </button>
+        <button
+          type="button"
+          onClick={onCopy}
+          disabled={!output.trim()}
+          className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:hover:bg-slate-900"
+        >
+          Copiar
         </button>
       </div>
 
@@ -96,8 +98,7 @@ export function JsonlPrettifyClient() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             spellCheck={false}
-            className="mt-1 min-h-80 w-full rounded-2xl border border-slate-200 bg-white p-3 font-mono text-xs outline-none dark:border-slate-800 dark:bg-slate-950"
-            placeholder='{"a":1}\n{"b":2}'
+            className="mt-1 min-h-80 w-full rounded-2xl border border-slate-200 bg-white p-3 font-mono text-xs outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-slate-800 dark:bg-slate-950 dark:focus:border-blue-700 dark:focus:ring-blue-950"
           />
         </div>
 
@@ -116,23 +117,28 @@ export function JsonlPrettifyClient() {
       </div>
 
       <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">O que é JSONL</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Quando usar o minify</h2>
         <p>
-          JSONL (JSON Lines) é um formato onde cada linha é um JSON independente. Ele é comum em logs, pipelines e exportações.
-          Esta ferramenta transforma cada linha em um bloco JSON bem formatado, separado por uma linha em branco.
+          Minificar é útil para reduzir tamanho ao salvar em arquivos, enviar em requisições ou armazenar em variáveis de ambiente. O
+          conteúdo permanece o mesmo; apenas a formatação (espaços e quebras de linha) é removida.
         </p>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Como usar</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Cuidados comuns</h2>
         <ul className="list-disc space-y-2 pl-5">
-          <li>Cole um JSON por linha no campo de entrada.</li>
-          <li>Escolha a indentação (2/4/8 espaços).</li>
-          <li>Clique em Prettify e copie o resultado.</li>
+          <li>
+            Se o JSON estiver inválido, corrija primeiro com o <a className="font-semibold" href="/tools/json/validator">validador</a>.
+          </li>
+          <li>Evite colar segredos (tokens/chaves). Mesmo com processamento local, é boa prática não expor dados sensíveis.</li>
+          <li>Se precisar comparar diffs, formate com indentação antes.</li>
         </ul>
 
         <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
         <p>
-          O processamento é local, no navegador. Evite colar dados sensíveis. Veja{" "}
-          <a className="font-semibold" href="/politica-de-privacidade">Política de Privacidade</a>.
+          O minify acontece no seu navegador. Saiba mais em{" "}
+          <a className="font-semibold" href="/politica-de-privacidade">
+            Política de Privacidade
+          </a>
+          .
         </p>
       </section>
     </main>

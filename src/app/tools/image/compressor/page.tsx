@@ -7,10 +7,10 @@ import { ImageCompressor } from "./components/ImageCompressor";
 export const metadata: Metadata = {
   title: "Compressor de Imagens Online – Reduza PNG e JPG Gratuitamente",
   description: "Comprimir PNG, JPG e WEBP grátis, direto do navegador. Nenhum arquivo enviado ao servidor.",
-  alternates: { canonical: `${SITE.url}/image-compressor` },
+  alternates: { canonical: `${SITE.url}/tools/image/compressor` },
   openGraph: {
     type: "website",
-    url: `${SITE.url}/image-compressor`,
+    url: `${SITE.url}/tools/image/compressor`,
     title: "Compressor de Imagens Online – Reduza PNG e JPG Gratuitamente",
     description: "Comprimir PNG, JPG e WEBP grátis, direto do navegador. Nenhum arquivo enviado ao servidor.",
     siteName: "Respawn Tech",
@@ -110,7 +110,7 @@ export default function ImageCompressorPage() {
       </section>
 
       <p className="mt-10 text-sm text-slate-500 dark:text-slate-400">
-        Voltando para a <a href="/">home</a>.
+        Ver mais ferramentas em <a href="/tools">/tools</a>.
       </p>
     </main>
   );

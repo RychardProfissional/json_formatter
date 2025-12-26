@@ -129,13 +129,22 @@ export function JsonEscapeClient() {
         <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Cuidados</h2>
         <ul className="list-disc space-y-2 pl-5">
           <li>Evite escape duplo (escapar duas vezes) para não dificultar o unescape.</li>
-          <li>Se estiver lidando com JSON completo, valide antes com o <a className="font-semibold" href="/tools/json-validator">Validador JSON</a>.</li>
+          <li>
+            Se estiver lidando com JSON completo, valide antes com o{" "}
+            <a className="font-semibold" href="/tools/json/validator">
+              Validador JSON
+            </a>
+            .
+          </li>
         </ul>
 
         <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
         <p>
           O processamento acontece no seu navegador. Evite colar segredos. Detalhes em{" "}
-          <a className="font-semibold" href="/politica-de-privacidade">Política de Privacidade</a>.
+          <a className="font-semibold" href="/politica-de-privacidade">
+            Política de Privacidade
+          </a>
+          .
         </p>
       </section>
     </main>
