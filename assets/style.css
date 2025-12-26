@@ -283,6 +283,12 @@ footer { max-width: 1180px; margin: 0 auto 20px; padding: 0 16px; }
   overflow: hidden;
 }
 
+/* Ensure AdSense has a measurable width */
+.ad-shell ins.adsbygoogle {
+  display: block;
+  width: 100%;
+}
+
 .ad-shell[data-ad-location="top"] { min-height: 90px; }
 .ad-shell[data-ad-location="incontent"] { min-height: 250px; }
 .ad-shell[data-ad-location="footer"] { min-height: 90px; }

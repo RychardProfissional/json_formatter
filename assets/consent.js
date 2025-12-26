@@ -108,8 +108,10 @@
       if (shell.offsetParent === null) return false;
       const style = window.getComputedStyle(shell);
       if (style.display === "none" || style.visibility === "hidden") return false;
-      const rect = shell.getBoundingClientRect();
-      if (!rect || rect.width <= 0) return false;
+      const shellRect = shell.getBoundingClientRect();
+      if (!shellRect || shellRect.width <= 0) return false;
+      const insRect = ins.getBoundingClientRect();
+      if (!insRect || insRect.width <= 0) return false;
       return true;
     }
 
