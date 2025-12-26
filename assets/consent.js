@@ -1,6 +1,32 @@
 (function () {
   const STORAGE_KEY = "siteConsentV1";
 
+  function isValidAdSlot(slot) {
+    const s = String(slot || "").trim();
+    if (!s) return false;
+    if (/^0+$/.test(s)) return false;
+    if (/^x+$/i.test(s)) return false;
+    if (/placeholder|change|troque|exemplo/i.test(s)) return false;
+    return true;
+  }
+
+  function getAllAdIns() {
+    return Array.from(document.querySelectorAll("ins.adsbygoogle"));
+  }
+
+  function getRenderableAdIns() {
+    return getAllAdIns().filter((ins) => isValidAdSlot(ins.getAttribute("data-ad-slot")));
+  }
+
+  function hideUnconfiguredAdShells() {
+    for (const ins of getAllAdIns()) {
+      const slot = ins.getAttribute("data-ad-slot");
+      if (isValidAdSlot(slot)) continue;
+      const shell = ins.closest(".ad-shell");
+      if (shell) shell.style.display = "none";
+    }
+  }
+
   // Minimal consent-mode stub for integrations that use gtag later.
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
@@ -50,8 +76,11 @@
     const cfg = window.SITE_CONFIG || {};
     if (!cfg.adsenseClient || cfg.adsenseClient.includes("XXXX")) return;
 
+    hideUnconfiguredAdShells();
+    const renderable = getRenderableAdIns();
+    if (!renderable.length) return;
+
     if (choice === "reject") {
-      // Non-personalized ads
       window.adsbygoogle = window.adsbygoogle || [];
       window.adsbygoogle.requestNonPersonalizedAds = 1;
       window.gtag("consent", "update", {
@@ -73,9 +102,7 @@
       { crossorigin: "anonymous" }
     );
 
-    // Render ad units (after script loads, push is queued).
-    const ins = document.querySelectorAll("ins.adsbygoogle");
-    ins.forEach(() => {
+    renderable.forEach(() => {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch {
@@ -87,8 +114,6 @@
   function initAnalytics(choice) {
     const cfg = window.SITE_CONFIG || {};
     if (!cfg.plausibleDomain || cfg.plausibleDomain.includes("SEU-DOMINIO")) return;
-
-    // Load analytics only with explicit accept.
     if (choice !== "accept") return;
 
     window.gtag("consent", "update", { analytics_storage: "granted" });
@@ -102,11 +127,19 @@
     store(choice);
     initAds(choice);
     initAnalytics(choice);
+    const banner = document.getElementById("consent-banner");
+    if (banner) banner.classList.remove("open");
   }
 
+  let bannerEl = null;
   function ensureBanner() {
+    if (bannerEl && document.body.contains(bannerEl)) return bannerEl;
+
     const existing = document.getElementById("consent-banner");
-    if (existing) return existing;
+    if (existing) {
+      bannerEl = existing;
+      return existing;
+    }
 
     const banner = document.createElement("div");
     banner.id = "consent-banner";
@@ -130,29 +163,37 @@
 
     document.body.appendChild(banner);
 
-    banner.querySelector("#consent-accept").addEventListener("click", () => {
-      banner.classList.remove("open");
-      applyChoice("accept");
-    });
+    banner.querySelector("#consent-accept").addEventListener("click", () => applyChoice("accept"));
+    banner.querySelector("#consent-reject").addEventListener("click", () => applyChoice("reject"));
 
-    banner.querySelector("#consent-reject").addEventListener("click", () => {
-      banner.classList.remove("open");
-      applyChoice("reject");
-    });
-
+    bannerEl = banner;
     return banner;
+  }
+
+  function openConsentPreferences() {
+    const banner = ensureBanner();
+    banner.classList.add("open");
   }
 
   function init() {
     const stored = getStored();
     if (stored) {
-      applyChoice(stored.choice);
+      initAds(stored.choice);
+      initAnalytics(stored.choice);
       return;
     }
 
-    const banner = ensureBanner();
-    banner.classList.add("open");
+    openConsentPreferences();
   }
+
+  window.openConsentPreferences = openConsentPreferences;
+
+  document.addEventListener("click", (ev) => {
+    const link = ev.target && ev.target.closest ? ev.target.closest("[data-open-consent]") : null;
+    if (!link) return;
+    ev.preventDefault();
+    openConsentPreferences();
+  });
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
