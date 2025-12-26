@@ -26,7 +26,7 @@ No database is used.
 - `src/infra/` — adapters (e.g. localStorage wrapper)
 - `src/ui/` — providers/components/hooks
 - `src/content/` — static content (blog metadata)
-- `public/` — static assets served at `/` (favicons, `og.svg`, `ads.txt`)
+- `public/` — static assets served at `/` (`ads.txt`, `og.svg`, fallback `favicon.ico`/`favicon.svg`)
 
 TypeScript path alias: `@/*` → `src/*` (see `tsconfig.json`).
 
@@ -63,6 +63,7 @@ Tool domain logic lives in `src/domain/tools/*` and is imported by the tool UI c
 - `src/app/sitemap.ts` serves `/sitemap.xml`
 - Page-level `metadata` is set on server components (App Router rule).
 - `public/og.svg` is used as the default OG image.
+- Favicon (Next.js App Router standard): `src/app/icon.svg`.
 
 ## Layout, nav, theme, consent
 - Root layout: `src/app/layout.tsx`
