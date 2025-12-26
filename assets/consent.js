@@ -102,13 +102,46 @@
       { crossorigin: "anonymous" }
     );
 
-    renderable.forEach(() => {
+    function canRender(ins) {
+      const shell = ins.closest(".ad-shell") || ins.parentElement;
+      if (!shell) return false;
+      if (shell.offsetParent === null) return false;
+      const style = window.getComputedStyle(shell);
+      if (style.display === "none" || style.visibility === "hidden") return false;
+      const rect = shell.getBoundingClientRect();
+      if (!rect || rect.width <= 0) return false;
+      return true;
+    }
+
+    function renderIns(ins) {
+      if (!ins || ins.dataset.adRendered === "1") return;
+      if (!canRender(ins)) return;
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
+        ins.dataset.adRendered = "1";
       } catch {
         // ignore
       }
-    });
+    }
+
+    function renderWithRetry(ins, attemptsLeft) {
+      if (!ins || ins.dataset.adRendered === "1") return;
+      if (canRender(ins)) {
+        renderIns(ins);
+        return;
+      }
+      if (attemptsLeft <= 0) return;
+      // Wait a bit for layout/CSS media queries to settle.
+      setTimeout(() => requestAnimationFrame(() => renderWithRetry(ins, attemptsLeft - 1)), 120);
+    }
+
+    // Try a few times; this prevents the "availableWidth=0" error.
+    renderable.forEach((ins) => renderWithRetry(ins, 8));
+
+    // If the viewport changes (e.g. rotate / resize), retry for any non-rendered visible slots.
+    window.addEventListener("resize", () => {
+      renderable.forEach((ins) => renderWithRetry(ins, 4));
+    }, { passive: true });
   }
 
   function initAnalytics(choice) {
