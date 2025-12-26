@@ -1,4 +1,8 @@
+import { SITE } from "@/application/siteConfig";
+import { AdSlot } from "@/ui/components/AdSlot";
+
 export default function ToolsIndexPage() {
+  // Ad slots are optional; configure in SITE.adsenseSlots.
   const tools = [
     { href: "/tools/json-formatter", name: "Formatador de JSON", desc: "Formatar, compactar e baixar JSON." },
     { href: "/tools/json-validator", name: "Validador JSON", desc: "Checar se um JSON está válido." },
@@ -14,6 +18,9 @@ export default function ToolsIndexPage() {
       <p className="mt-3 text-slate-600 dark:text-slate-300">
         Ferramentas gratuitas para resolver tarefas técnicas em segundos.
       </p>
+
+      {/* Client component subtree */}
+      <ToolsIndexAd />
 
       <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         {tools.map((t) => (
@@ -32,5 +39,14 @@ export default function ToolsIndexPage() {
         Voltando para a <a href="/">home</a>.
       </p>
     </main>
+  );
+}
+
+function ToolsIndexAd() {
+  return (
+    <AdSlot
+      slot={SITE.adsenseSlots.toolsIndex}
+      className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
+    />
   );
 }

@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { I18nProvider } from "@/ui/providers/I18nProvider";
+import { ThemeProvider } from "@/ui/providers/ThemeProvider";
+import { ConsentProvider } from "@/ui/providers/ConsentProvider";
+import { SiteShell } from "@/ui/components/SiteShell";
+import { SITE } from "@/application/siteConfig";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://respawntech.dev"),
@@ -10,6 +15,9 @@ export const metadata: Metadata = {
   description:
     "Respawn Tech é uma plataforma de ferramentas online gratuitas para programadores, estudantes e empreendedores.",
   alternates: { canonical: "/" },
+  other: {
+    "google-adsense-account": SITE.adsenseClient
+  },
   openGraph: {
     type: "website",
     url: "https://respawntech.dev/",
@@ -32,7 +40,13 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body>
-        {children}
+        <I18nProvider defaultLocale="pt-BR">
+          <ThemeProvider>
+            <ConsentProvider>
+              <SiteShell>{children}</SiteShell>
+            </ConsentProvider>
+          </ThemeProvider>
+        </I18nProvider>
       </body>
     </html>
   );
