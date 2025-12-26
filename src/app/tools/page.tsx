@@ -32,7 +32,8 @@ export default function ToolsIndexPage() {
     { href: "/tools/json/escape", name: PT_BR["tools.json.escape.title"], desc: PT_BR["tools.json.index.cards.escape.desc"] },
     { href: "/tools/json/csv", name: PT_BR["tools.json.csv.title"], desc: PT_BR["tools.json.index.cards.csv.desc"] },
     { href: "/tools/json/jsonl-prettify", name: PT_BR["tools.json.jsonl.title"], desc: PT_BR["tools.json.index.cards.jsonl.desc"] },
-    { href: "/tools/image/compressor", name: PT_BR["tools.image.index.cards.compressor.title"], desc: PT_BR["tools.image.index.cards.compressor.desc"] }
+    { href: "/tools/image/compressor", name: PT_BR["tools.image.index.cards.compressor.title"], desc: PT_BR["tools.image.index.cards.compressor.desc"] },
+    { href: "/tools/pdf", name: PT_BR["tools.index.cards.pdf.title"], desc: PT_BR["tools.index.cards.pdf.desc"] }
   ];
 
   return (

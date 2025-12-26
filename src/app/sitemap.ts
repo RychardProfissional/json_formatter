@@ -8,6 +8,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/tools",
+    "/tools/pdf",
+    "/tools/pdf/image-to-pdf",
+    "/tools/pdf/merge",
     "/tools/image",
     "/tools/image/compressor",
     "/tools/json",
