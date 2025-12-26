@@ -42,6 +42,7 @@ export function JsonlPrettifyClient() {
       <AdSlot
         slot={SITE.adsenseSlots.tools}
         className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
+        minHeight={250}
       />
 
       <div className="mt-6 flex flex-wrap items-end gap-3">
@@ -113,6 +114,27 @@ export function JsonlPrettifyClient() {
           />
         </div>
       </div>
+
+      <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">O que é JSONL</h2>
+        <p>
+          JSONL (JSON Lines) é um formato onde cada linha é um JSON independente. Ele é comum em logs, pipelines e exportações.
+          Esta ferramenta transforma cada linha em um bloco JSON bem formatado, separado por uma linha em branco.
+        </p>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Como usar</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Cole um JSON por linha no campo de entrada.</li>
+          <li>Escolha a indentação (2/4/8 espaços).</li>
+          <li>Clique em Prettify e copie o resultado.</li>
+        </ul>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
+        <p>
+          O processamento é local, no navegador. Evite colar dados sensíveis. Veja{" "}
+          <a className="font-semibold" href="/politica-de-privacidade">Política de Privacidade</a>.
+        </p>
+      </section>
     </main>
   );
 }

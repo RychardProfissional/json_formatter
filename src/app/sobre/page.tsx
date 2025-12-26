@@ -2,7 +2,24 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Sobre",
-  alternates: { canonical: "/sobre" }
+  description:
+    "Conheça a Respawn Tech: propósito, como as ferramentas funcionam, privacidade e quem mantém o projeto.",
+  alternates: { canonical: "/sobre" },
+  openGraph: {
+    type: "website",
+    title: "Sobre | Respawn Tech",
+    description:
+      "Conheça a Respawn Tech: propósito, como as ferramentas funcionam, privacidade e quem mantém o projeto.",
+    url: "https://respawntech.dev/sobre",
+    images: ["/og.svg"]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sobre | Respawn Tech",
+    description:
+      "Conheça a Respawn Tech: propósito, como as ferramentas funcionam, privacidade e quem mantém o projeto.",
+    images: ["/og.svg"]
+  }
 };
 
 export default function SobrePage() {

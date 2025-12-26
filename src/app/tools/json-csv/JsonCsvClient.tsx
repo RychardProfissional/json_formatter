@@ -63,6 +63,7 @@ export function JsonCsvClient() {
       <AdSlot
         slot={SITE.adsenseSlots.tools}
         className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
+        minHeight={250}
       />
 
       <div className="mt-4">
@@ -141,6 +142,27 @@ export function JsonCsvClient() {
             className="min-h-56 w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 font-mono text-xs outline-none dark:border-slate-800 dark:bg-slate-900"
           />
         </div>
+      </section>
+
+      <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Como usar o conversor</h2>
+        <p>
+          Para <strong>JSON → CSV</strong>, cole um objeto ou um array de objetos. Para <strong>CSV → JSON</strong>, cole um CSV simples com
+          cabeçalho na primeira linha. O resultado aparece ao lado e pode ser copiado.
+        </p>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Dicas e limitações</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Para arrays, todos os itens devem ter estrutura parecida (campos). Campos ausentes podem virar valores vazios.</li>
+          <li>O parser de CSV aqui é simples: casos complexos (vírgulas dentro de aspas, escapes avançados) podem falhar.</li>
+          <li>Se o JSON estiver inválido, valide antes com o <a className="font-semibold" href="/tools/json-validator">Validador JSON</a>.</li>
+        </ul>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
+        <p>
+          O conteúdo é processado no navegador. Evite colar dados sensíveis. Veja{" "}
+          <a className="font-semibold" href="/politica-de-privacidade">Política de Privacidade</a>.
+        </p>
       </section>
     </main>
   );

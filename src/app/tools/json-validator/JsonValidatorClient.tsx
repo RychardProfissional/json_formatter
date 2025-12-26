@@ -31,6 +31,7 @@ export function JsonValidatorClient() {
       <AdSlot
         slot={SITE.adsenseSlots.tools}
         className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
+        minHeight={250}
       />
 
       <div className="mt-6 flex flex-wrap gap-3">
@@ -73,6 +74,30 @@ export function JsonValidatorClient() {
       <p className="mt-8 text-sm text-slate-500 dark:text-slate-400">
         Dica: se estiver inválido, use o <a className="font-semibold" href="/tools/json-formatter">formatador</a> para facilitar a correção.
       </p>
+
+      <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">O que este validador faz</h2>
+        <p>
+          O validador verifica a <strong>sintaxe</strong> do JSON. Ele ajuda a identificar erros como vírgula extra no final,
+          aspas erradas, chaves/colchetes desbalanceados e caracteres não escapados dentro de strings.
+        </p>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Como corrigir rápido</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Se a mensagem citar uma posição (linha/coluna), volte alguns caracteres e procure a quebra.</li>
+          <li>Troque aspas simples por aspas duplas.</li>
+          <li>Remova vírgula sobrando após o último item.</li>
+          <li>
+            Use o <a className="font-semibold" href="/tools/json-formatter">Formatador de JSON</a> para reorganizar e enxergar o problema.
+          </li>
+        </ul>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
+        <p>
+          O conteúdo colado é processado no navegador. Evite colar segredos. Veja detalhes em{" "}
+          <a className="font-semibold" href="/politica-de-privacidade">Política de Privacidade</a>.
+        </p>
+      </section>
     </main>
   );
 }

@@ -7,12 +7,19 @@ export function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const post = getBlogPost(params.slug);
+type ParamsInput = { slug: string } | Promise<{ slug: string }>;
+
+async function resolveParams(params: ParamsInput): Promise<{ slug: string }> {
+  return await Promise.resolve(params);
+}
+
+export async function generateMetadata({ params }: { params: ParamsInput }): Promise<Metadata> {
+  const { slug } = await resolveParams(params);
+  const post = getBlogPost(slug);
   if (!post) return {};
 
   return {
-    title: `${post.title} | Respawn Tech`,
+    title: post.title,
     description: post.description,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
@@ -21,12 +28,19 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       description: post.ogDescription,
       url: `https://respawntech.dev/blog/${post.slug}`,
       images: ["/og.svg"]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.ogDescription,
+      images: ["/og.svg"]
     }
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getBlogPost(params.slug);
+export default async function BlogPostPage({ params }: { params: ParamsInput }) {
+  const { slug } = await resolveParams(params);
+  const post = getBlogPost(slug);
   if (!post) notFound();
 
   return (
@@ -39,7 +53,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       <p className="mt-3 text-slate-600 dark:text-slate-300">{post.ogDescription}</p>
 
       <article className="mt-8 space-y-4 text-slate-700 dark:text-slate-200">
-        {renderPost(params.slug)}
+        {renderPost(post.slug)}
       </article>
 
       <p className="mt-10 text-sm text-slate-500 dark:text-slate-400">

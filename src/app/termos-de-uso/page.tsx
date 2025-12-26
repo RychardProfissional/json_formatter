@@ -2,7 +2,22 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Termos de Uso",
-  alternates: { canonical: "/termos-de-uso" }
+  description:
+    "Termos de Uso da Respawn Tech: regras, limitações, responsabilidade e uso das ferramentas.",
+  alternates: { canonical: "/termos-de-uso" },
+  openGraph: {
+    type: "website",
+    title: "Termos de Uso | Respawn Tech",
+    description: "Termos de Uso da Respawn Tech: regras, limitações, responsabilidade e uso das ferramentas.",
+    url: "https://respawntech.dev/termos-de-uso",
+    images: ["/og.svg"]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Termos de Uso | Respawn Tech",
+    description: "Termos de Uso da Respawn Tech: regras, limitações, responsabilidade e uso das ferramentas.",
+    images: ["/og.svg"]
+  }
 };
 
 export default function TermosDeUsoPage() {

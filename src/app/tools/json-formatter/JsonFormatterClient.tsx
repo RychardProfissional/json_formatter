@@ -85,6 +85,7 @@ export function JsonFormatterClient() {
       <AdSlot
         slot={SITE.adsenseSlots.tools}
         className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
+        minHeight={250}
       />
 
       <div className="mt-6 flex flex-wrap items-end gap-3">
@@ -192,6 +193,37 @@ export function JsonFormatterClient() {
         Ver também: <a className="font-semibold" href="/tools/json-validator">validador</a> e{" "}
         <a className="font-semibold" href="/tools/json-minify">minify</a>.
       </p>
+
+      <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Como usar</h2>
+        <ol className="list-decimal space-y-2 pl-5">
+          <li>Cole o JSON na caixa de entrada.</li>
+          <li>Escolha a indentação (2, 4 ou 8 espaços).</li>
+          <li>Use <strong>Formatar</strong> para deixar legível ou <strong>Minificar</strong> para compactar.</li>
+          <li>Copie ou baixe o resultado.</li>
+        </ol>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Erros comuns</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong>Trailing comma:</strong> JSON não permite vírgula extra no final.
+          </li>
+          <li>
+            <strong>Aspas simples:</strong> chaves e strings exigem aspas duplas.
+          </li>
+          <li>
+            <strong>Chaves/colchetes:</strong> verifique se <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"{"}</code> fecha com{" "}
+            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"}"}</code> e <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"["}</code> fecha com{" "}
+            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"]"}</code>.
+          </li>
+        </ul>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
+        <p>
+          O processamento acontece no seu navegador. Evite colar segredos (tokens, senhas, chaves). Para detalhes sobre
+          anúncios/cookies, leia a <a className="font-semibold" href="/politica-de-privacidade">Política de Privacidade</a>.
+        </p>
+      </section>
     </main>
   );
 }

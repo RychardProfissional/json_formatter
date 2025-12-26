@@ -2,7 +2,24 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
-  alternates: { canonical: "/politica-de-privacidade" }
+  description:
+    "Política de Privacidade da Respawn Tech: dados, armazenamento local, cookies, anúncios (AdSense) e analytics.",
+  alternates: { canonical: "/politica-de-privacidade" },
+  openGraph: {
+    type: "website",
+    title: "Política de Privacidade | Respawn Tech",
+    description:
+      "Política de Privacidade da Respawn Tech: dados, armazenamento local, cookies, anúncios (AdSense) e analytics.",
+    url: "https://respawntech.dev/politica-de-privacidade",
+    images: ["/og.svg"]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Política de Privacidade | Respawn Tech",
+    description:
+      "Política de Privacidade da Respawn Tech: dados, armazenamento local, cookies, anúncios (AdSense) e analytics.",
+    images: ["/og.svg"]
+  }
 };
 
 export default function PoliticaDePrivacidadePage() {

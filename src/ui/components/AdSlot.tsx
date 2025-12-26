@@ -15,10 +15,12 @@ function canRender(el: HTMLElement | null): boolean {
 
 export function AdSlot({
   slot,
-  className
+  className,
+  minHeight = 250
 }: {
   slot: string;
   className?: string;
+  minHeight?: number;
 }) {
   const { choice } = useConsent();
   const insRef = useRef<HTMLModElement | null>(null);
@@ -65,7 +67,7 @@ export function AdSlot({
   if (!enabled) return null;
 
   return (
-    <div className={className}>
+    <div className={className} style={{ minHeight }}>
       <ins
         ref={insRef}
         className="adsbygoogle block w-full"

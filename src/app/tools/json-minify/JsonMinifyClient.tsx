@@ -52,6 +52,7 @@ export function JsonMinifyClient() {
       <AdSlot
         slot={SITE.adsenseSlots.tools}
         className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
+        minHeight={250}
       />
 
       <div className="mt-6 flex flex-wrap gap-3">
@@ -114,6 +115,29 @@ export function JsonMinifyClient() {
           />
         </div>
       </div>
+
+      <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Quando usar o minify</h2>
+        <p>
+          Minificar é útil para reduzir tamanho ao salvar em arquivos, enviar em requisições ou armazenar em variáveis de ambiente. O
+          conteúdo permanece o mesmo; apenas a formatação (espaços e quebras de linha) é removida.
+        </p>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Cuidados comuns</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            Se o JSON estiver inválido, corrija primeiro com o <a className="font-semibold" href="/tools/json-validator">validador</a>.
+          </li>
+          <li>Evite colar segredos (tokens/chaves). Mesmo com processamento local, é boa prática não expor dados sensíveis.</li>
+          <li>Se precisar comparar diffs, formate com indentação antes.</li>
+        </ul>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
+        <p>
+          O minify acontece no seu navegador. Saiba mais em{" "}
+          <a className="font-semibold" href="/politica-de-privacidade">Política de Privacidade</a>.
+        </p>
+      </section>
     </main>
   );
 }

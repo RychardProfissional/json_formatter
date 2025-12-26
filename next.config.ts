@@ -22,7 +22,11 @@ const nextConfig: NextConfig = {
       { source: "/contato/", destination: "/contato", permanent: true },
       { source: "/politica-de-privacidade/", destination: "/politica-de-privacidade", permanent: true },
       { source: "/termos-de-uso/", destination: "/termos-de-uso", permanent: true },
-      { source: "/blog/", destination: "/blog", permanent: true }
+      { source: "/blog/", destination: "/blog", permanent: true },
+      { source: "/blog/:slug/", destination: "/blog/:slug", permanent: true },
+
+      { source: "/tools/", destination: "/tools", permanent: true },
+      { source: "/tools/:path*/", destination: "/tools/:path*", permanent: true }
     ];
   }
 };

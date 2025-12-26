@@ -48,6 +48,7 @@ export function JsonEscapeClient() {
       <AdSlot
         slot={SITE.adsenseSlots.tools}
         className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
+        minHeight={250}
       />
 
       <div className="mt-6 flex flex-wrap gap-3">
@@ -110,6 +111,33 @@ export function JsonEscapeClient() {
           />
         </div>
       </div>
+
+      <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">O que é escape e unescape</h2>
+        <p>
+          O <strong>escape</strong> transforma caracteres especiais em sequências seguras para strings, como <code>\n</code> (quebra de linha),
+          <code>\t</code> (tab) e <code>\"</code> (aspas). O <strong>unescape</strong> faz o caminho inverso.
+        </p>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Quando usar</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Inserir um JSON como string em código (ex.: JavaScript/TypeScript).</li>
+          <li>Colar valores em variáveis de ambiente, logs ou testes automatizados.</li>
+          <li>Reverter uma string escapada para leitura humana (unescape).</li>
+        </ul>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Cuidados</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Evite escape duplo (escapar duas vezes) para não dificultar o unescape.</li>
+          <li>Se estiver lidando com JSON completo, valide antes com o <a className="font-semibold" href="/tools/json-validator">Validador JSON</a>.</li>
+        </ul>
+
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Privacidade</h2>
+        <p>
+          O processamento acontece no seu navegador. Evite colar segredos. Detalhes em{" "}
+          <a className="font-semibold" href="/politica-de-privacidade">Política de Privacidade</a>.
+        </p>
+      </section>
     </main>
   );
 }
