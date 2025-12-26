@@ -9,6 +9,43 @@
 
   window.trackEvent = trackEvent;
 
+  function wireJsonFileUpload(options) {
+    const fileBtn = document.getElementById("file-btn");
+    const fileInput = document.getElementById("file-input");
+    const inputEl = options && options.inputEl;
+    if (!fileBtn || !fileInput || !inputEl) return;
+
+    const setStatus = options.setStatus || (() => {});
+    const updateStats = options.updateStats || (() => {});
+    const onText = options.onText || (() => {});
+
+    fileBtn.addEventListener("click", () => {
+      try { fileInput.click(); } catch { /* ignore */ }
+    });
+
+    fileInput.addEventListener("change", async () => {
+      const file = fileInput.files && fileInput.files[0];
+      fileInput.value = "";
+      if (!file) return;
+
+      try {
+        if (file.size && file.size > 5 * 1024 * 1024) {
+          setStatus("Arquivo muito grande (máx. 5MB)", "error");
+          return;
+        }
+
+        const text = await file.text();
+        inputEl.value = text;
+        updateStats(text);
+        onText(text);
+        setStatus("Arquivo carregado", "ok");
+        trackEvent("upload_json");
+      } catch {
+        setStatus("Falha ao ler arquivo", "error");
+      }
+    });
+  }
+
   function wireCommonEvents() {
     const btnFormat = document.getElementById("format-btn");
     const btnMinify = document.getElementById("minify-btn");
@@ -153,6 +190,16 @@
       autoTimer = setTimeout(() => processJson("pretty"), 500);
     }
 
+    wireJsonFileUpload({
+      inputEl,
+      setStatus,
+      updateStats,
+      onText: (text) => {
+        persistInput(text);
+        processJson("pretty");
+      }
+    });
+
     const formatBtn = document.getElementById("format-btn");
     const minifyBtn = document.getElementById("minify-btn");
     const clearBtn = document.getElementById("clear-btn");
@@ -217,6 +264,14 @@
       if (copyBtn) copyBtn.disabled = !text;
       if (downloadBtn) downloadBtn.disabled = !text;
     }
+
+    wireJsonFileUpload({
+      inputEl,
+      setStatus,
+      onText: () => {
+        setOutput("");
+      }
+    });
 
     function stringifyOrThrow(val, indent) {
       return JSON.stringify(val, null, indent);

@@ -13,6 +13,16 @@
   --code: #0b1021;
 }
 
+body[data-theme="dark"] {
+  --bg: #070a12;
+  --panel: #0b1021;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --border: #1f2937;
+  --shadow: 0 12px 45px rgba(0, 0, 0, 0.35);
+  --code: #050816;
+}
+
 * { box-sizing: border-box; }
 
 body {
@@ -40,6 +50,11 @@ header {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 10px 0;
+  background: var(--bg);
 }
 
 .nav {
@@ -56,6 +71,16 @@ header {
   border-radius: 10px;
   border: 1px solid rgba(37, 99, 235, 0.15);
   background: rgba(37, 99, 235, 0.06);
+}
+
+.nav button {
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  background: rgba(37, 99, 235, 0.06);
+  font: inherit;
+  color: var(--primary-strong);
+  cursor: pointer;
 }
 
 h1 { margin: 10px 0 6px; font-size: 30px; letter-spacing: -0.02em; }

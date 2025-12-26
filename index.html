@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formatador de JSON Online Rápido | Embelezar e Compactar JSON</title>
+  <title>Formatador JSON Online – Ferramenta Grátis para Desenvolvedores</title>
   <meta name="description" content="Formatador de JSON online gratuito: formate, valide, compacte e copie JSON em segundos. Ferramenta rápida, responsiva e segura (processamento no navegador).">
+  <meta name="keywords" content="formatador json, json formatter, embelezar json, json pretty print, minificar json, validar json, json online" />
   <meta name="robots" content="index, follow">
   <meta name="google-adsense-account" content="ca-pub-4583546796463766" />
-  <link rel="canonical" href="https://json-formatter-six-self.vercel.app/" />
+  <link rel="canonical" href="https://respawntech.dev/" />
   <meta property="og:type" content="website">
   <meta property="og:title" content="Formatador de JSON Online Rápido | Embelezar e Compactar JSON">
   <meta property="og:description" content="Cole, formate, compacte e copie JSON em segundos. Processamento local no navegador, grátis e otimizado para SEO.">
-  <meta property="og:url" content="https://json-formatter-six-self.vercel.app/" />
-  <meta property="og:image" content="https://json-formatter-six-self.vercel.app/og.svg" />
+  <meta property="og:url" content="https://respawntech.dev/" />
+  <meta property="og:image" content="https://respawntech.dev/og.svg" />
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://json-formatter-six-self.vercel.app/og.svg" />
+  <meta name="twitter:image" content="https://respawntech.dev/og.svg" />
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="alternate icon" href="/favicon.ico" sizes="any" />
@@ -25,7 +26,7 @@
     window.SITE_CONFIG = {
       // Preencha com seu ID/slot reais para ativar.
       adsenseClient: "ca-pub-4583546796463766",
-      plausibleDomain: "json-formatter-six-self.vercel.app"
+      plausibleDomain: "respawntech.dev"
     };
   </script>
 </head>
@@ -41,9 +42,11 @@
         <a href="/jsonl.html">Prettify JSONL</a>
       </div>
       <div class="nav" aria-label="Links do site">
+        <a href="/sobre.html">Sobre</a>
         <a href="/privacy.html">Privacidade</a>
         <a href="/terms.html">Termos</a>
         <a href="/contact.html">Contato</a>
+        <button type="button" data-theme-toggle aria-pressed="false">Tema</button>
       </div>
     </div>
 
@@ -75,6 +78,8 @@
           <div class="actions">
             <button id="format-btn" class="primary" type="button">Formatar</button>
             <button id="minify-btn" class="ghost" type="button">Compactar</button>
+            <button id="file-btn" class="muted-btn" type="button">Carregar .json</button>
+            <input id="file-input" type="file" accept=".json,application/json" style="display:none" />
             <button id="clear-btn" class="muted-btn" type="button">Limpar</button>
             <button id="sample-btn" class="muted-btn" type="button">Usar exemplo</button>
             <div id="status" class="status" role="status" aria-live="polite">
@@ -89,6 +94,7 @@
               <select id="indent-select" aria-label="Quantidade de espaços">
                 <option value="2" selected>2</option>
                 <option value="4">4</option>
+                <option value="8">8</option>
               </select>
             </div>
             <label class="toggle" aria-label="Autoformatar ao digitar">
@@ -144,6 +150,14 @@
       <h2 class="section-title">Como usar o formatador de JSON</h2>
       <p>1. Cole ou digite seu JSON no campo de entrada. 2. Clique em "Formatar" para embelezar ou em "Compactar" para minificar. 3. Copie ou baixe o resultado pronto. Erros de sintaxe são destacados na hora.</p>
       <p>Funciona para payloads de APIs, configurações, logs e testes rápidos. Todo o processamento acontece no seu navegador, sem backend.</p>
+      <p>Dicas rápidas: use <strong>Ctrl+Enter</strong> para formatar pelo teclado; escolha a indentação (2, 4 ou 8 espaços) para bater com o padrão do seu projeto; e use <strong>Carregar .json</strong> para abrir um arquivo local e formatar em segundos.</p>
+    </section>
+
+    <section class="seo-block" aria-label="O que é JSON">
+      <h2 class="section-title">O que é JSON (e por que formatar)?</h2>
+      <p>JSON (JavaScript Object Notation) é um formato leve para troca de dados. Ele é muito usado em APIs, arquivos de configuração e integrações porque é fácil de ler e simples de gerar por máquinas.</p>
+      <p>Na prática, JSON pode vir minificado em uma única linha — ótimo para transmissão, ruim para depurar. Ao formatar, você organiza chaves, arrays e objetos com quebras de linha e indentação, facilitando encontrar campos, comparar versões e entender estruturas aninhadas.</p>
+      <p>Um bom formato também ajuda em revisões de PR, troubleshooting de logs e documentação de exemplos. Quando você precisa enviar um payload para outra pessoa (ou colar em um ticket), um JSON bem identado reduz erros de interpretação e economiza tempo.</p>
     </section>
 
     <section class="seo-block" aria-label="Benefícios e SEO">
@@ -155,6 +169,7 @@
         <li>Experiência: espaços reservados para anúncios, reduzindo CLS.</li>
       </ul>
       <p>Use diariamente para depurar APIs REST, ajustar arquivos de configuração, preparar demos ou compartilhar exemplos bem formatados com sua equipe.</p>
+      <p>Se o seu JSON estiver inválido, a ferramenta mostra a mensagem do erro de parsing. Muitas vezes isso acontece por vírgulas a mais, aspas incorretas ou colchetes/chaves faltando. Corrija a entrada e tente novamente — o resultado aparecerá no painel ao lado.</p>
     </section>
 
     <section class="seo-block" aria-label="FAQ sobre formatar JSON">
@@ -179,6 +194,7 @@
     </div>
     <p class="lead">Ferramenta leve e útil, sem forçar cliques. Volte sempre que precisar formatar ou compactar JSON.</p>
     <div class="footer-links">
+      <a href="/sobre.html">Sobre</a>
       <a href="/privacy.html">Política de Privacidade</a>
       <a href="/terms.html">Termos</a>
       <a href="/privacy.html#preferencias" data-open-consent>Preferências de cookies</a>
@@ -215,7 +231,27 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Formatador de JSON Online",
+    "url": "https://respawntech.dev/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "inLanguage": "pt-BR",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL"
+    },
+    "description": "Ferramenta gratuita para formatar, validar e compactar JSON no navegador, com opção de copiar e baixar o resultado."
+  }
+  </script>
+
   <script src="/assets/site.js" defer></script>
   <script src="/assets/consent.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
 </body>
 </html>

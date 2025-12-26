@@ -7,15 +7,15 @@
   <meta name="description" content="Prettify JSONL online: cole JSON Lines (1 JSON por linha) e gere uma versão legível por blocos." />
   <meta name="robots" content="index, follow" />
   <meta name="google-adsense-account" content="ca-pub-4583546796463766" />
-  <link rel="canonical" href="https://json-formatter-six-self.vercel.app/jsonl.html" />
+  <link rel="canonical" href="https://respawntech.dev/jsonl.html" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Prettify JSONL Online | Embelezar JSON Lines" />
   <meta property="og:description" content="Transforme JSONL em blocos legíveis." />
-  <meta property="og:url" content="https://json-formatter-six-self.vercel.app/jsonl.html" />
-  <meta property="og:image" content="https://json-formatter-six-self.vercel.app/og.svg" />
+  <meta property="og:url" content="https://respawntech.dev/jsonl.html" />
+  <meta property="og:image" content="https://respawntech.dev/og.svg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://json-formatter-six-self.vercel.app/og.svg" />
+  <meta name="twitter:image" content="https://respawntech.dev/og.svg" />
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="alternate icon" href="/favicon.ico" sizes="any" />
@@ -24,7 +24,7 @@
   <script>
     window.SITE_CONFIG = {
       adsenseClient: "ca-pub-4583546796463766",
-      plausibleDomain: "json-formatter-six-self.vercel.app"
+      plausibleDomain: "respawntech.dev"
     };
   </script>
 </head>
@@ -40,9 +40,11 @@
         <a href="/jsonl.html">Prettify JSONL</a>
       </div>
       <div class="nav" aria-label="Links do site">
+        <a href="/sobre.html">Sobre</a>
         <a href="/privacy.html">Privacidade</a>
         <a href="/terms.html">Termos</a>
         <a href="/contact.html">Contato</a>
+        <button type="button" data-theme-toggle aria-pressed="false">Tema</button>
       </div>
     </div>
 
@@ -63,6 +65,8 @@
 
           <div class="actions">
             <button id="run-btn" class="primary" type="button">Embelezar</button>
+            <button id="file-btn" class="muted-btn" type="button">Carregar .json</button>
+            <input id="file-input" type="file" accept=".json,application/json" style="display:none" />
             <button id="clear-btn" class="muted-btn" type="button">Limpar</button>
             <div id="status" class="status" role="status" aria-live="polite">
               <span class="dot"></span>
@@ -107,6 +111,7 @@
   <footer>
     <p class="lead">Ferramentas JSON com foco em utilidade e transparência.</p>
     <div class="footer-links">
+      <a href="/sobre.html">Sobre</a>
       <a href="/privacy.html">Política de Privacidade</a>
       <a href="/terms.html">Termos</a>
       <a href="/privacy.html#preferencias" data-open-consent>Preferências de cookies</a>
@@ -116,5 +121,6 @@
 
   <script src="/assets/site.js" defer></script>
   <script src="/assets/consent.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
 </body>
 </html>
