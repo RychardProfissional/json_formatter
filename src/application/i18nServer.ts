@@ -1,10 +1,11 @@
-import { DICTIONARIES, DEFAULT_LOCALE } from "@/languages";
+import { dictionaries, DEFAULT_LOCALE } from "@/languages";
 
 export type RouteLocaleParam = string | undefined;
 
 export function getDict(locale?: RouteLocaleParam) {
-  if (!locale) return DICTIONARIES[DEFAULT_LOCALE];
-  return DICTIONARIES[locale] ?? DICTIONARIES[DEFAULT_LOCALE];
+  if (!locale) return dictionaries[DEFAULT_LOCALE];
+  // @ts-expect-error - we know locale is a string, but it might not be a valid key
+  return dictionaries[locale] ?? dictionaries[DEFAULT_LOCALE];
 }
 
 // Legacy: kept for compatibility but app now uses query-param `lang`.

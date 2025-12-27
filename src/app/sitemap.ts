@@ -1,40 +1,27 @@
-import type { MetadataRoute } from "next";
-import { blogPosts } from "@/content/blog";
+import { MetadataRoute } from "next";
+import { SITE } from "@/application/siteConfig";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://respawntech.dev";
-  const now = new Date();
-
-  const staticRoutes = [
+  const routes = [
     "",
     "/tools",
-    "/tools/pdf",
+    "/tools/image/compressor",
+    "/tools/json/formatter",
+    "/tools/json/minify",
+    "/tools/json/validator",
+    "/tools/json/csv",
+    "/tools/json/escape",
+    "/tools/json/jsonl-prettify",
     "/tools/pdf/image-to-pdf",
     "/tools/pdf/merge",
-    "/tools/image",
-    "/tools/image/compressor",
-    "/tools/json",
-    "/tools/json/formatter",
-    "/tools/json/validator",
-    "/tools/json/minify",
-    "/tools/json/escape",
-    "/tools/json/csv",
-    "/tools/json/jsonl-prettify",
-    "/blog",
-    "/sobre",
-    "/contato",
+    "/termos-de-uso",
     "/politica-de-privacidade",
-    "/termos-de-uso"
-  ];
+  ].map((route) => ({
+    url: `${SITE.url}${route}`,
+    lastModified: new Date().toISOString().split("T")[0],
+    changeFrequency: "weekly" as const,
+    priority: route === "" ? 1 : 0.8,
+  }));
 
-  return [
-    ...staticRoutes.map((path) => ({
-      url: `${base}${path}`,
-      lastModified: now
-    })),
-    ...blogPosts.map((p) => ({
-      url: `${base}/blog/${p.slug}`,
-      lastModified: new Date(p.publishedAt)
-    }))
-  ];
+  return routes;
 }

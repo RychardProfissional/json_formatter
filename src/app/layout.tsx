@@ -46,10 +46,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // In a real app with i18n middleware, we would get the lang from params.
+  // For now, we default to pt-BR but allow it to be dynamic if we add middleware later.
+  const lang = "pt-BR"; 
+
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body>
-        <I18nProvider defaultLocale="pt-BR">
+        <I18nProvider defaultLocale={lang}>
           <ThemeProvider>
             <Suspense fallback={null}>
               <ConsentProvider>

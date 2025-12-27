@@ -2,9 +2,9 @@
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { isSupportedLocale } from "@/application/i18n";
-import { DICTIONARIES, DEFAULT_LOCALE, type Locale as AppLocale } from "@/languages";
+import { dictionaries, DEFAULT_LOCALE, type SupportedLocale } from "@/languages";
 
-export type Locale = AppLocale;
+export type Locale = SupportedLocale;
 
 interface I18nApi {
   locale: Locale;
@@ -27,7 +27,7 @@ export function I18nProvider({
     try {
       const params = new URLSearchParams(window.location.search ?? "");
       const q = params.get("lang") ?? params.get("locale");
-      if (isSupportedLocale(q)) return q as AppLocale;
+      if (q && isSupportedLocale(q)) return q as Locale;
     } catch {
       // ignore
     }
@@ -46,14 +46,14 @@ export function I18nProvider({
   }, [locale]);
 
   const api = useMemo<I18nApi>(() => {
-    const dict = DICTIONARIES[locale] ?? DICTIONARIES["pt-BR"];
+    const dict = dictionaries[locale] ?? dictionaries["pt-BR"];
     return {
       locale,
       setLocale,
       t: (key: string, vars?: Record<string, string | number>) => {
         const template = dict[key] ?? key;
         if (!vars) return template;
-        return template.replace(/\{(\w+)\}/g, (_m, name: string) => {
+        return template.replace(/\{(\w+)\}/g, (_m: string, name: string) => {
           const value = vars[name];
           return value === undefined ? `{${name}}` : String(value);
         });
