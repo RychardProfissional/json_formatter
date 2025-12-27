@@ -26,12 +26,12 @@ export function ToolPage({ children }: { children: React.ReactNode }) {
         <div className="space-y-8">
           {children}
           <div className="mt-8">
-            <AdSlot slot={SITE.adsenseSlots.toolsExtra3} />
+            <AdSlot slot={SITE.adsenseSlots.toolContentBottom} />
           </div>
         </div>
         <div className="space-y-8">
           <div className="sticky top-24">
-            <AdSlot slot={SITE.adsenseSlots.tools} minHeight={600} />
+            <AdSlot slot={SITE.adsenseSlots.toolSidebar} minHeight={600} />
           </div>
         </div>
       </div>

@@ -95,7 +95,7 @@ export function JsonFormatterClient() {
       />
 
       <AdSlot
-        slot={SITE.adsenseSlots.tools}
+        slot={SITE.adsenseSlots.toolContentTop}
         className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
         minHeight={250}
       />

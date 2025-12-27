@@ -51,7 +51,7 @@ export default async function ImageCompressorPage({ searchParams }: { searchPara
       />
 
       <AdSlot
-        slot={SITE.adsenseSlots.toolsExtra3}
+        slot={SITE.adsenseSlots.toolContentTop}
         className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
         minHeight={250}
       />
@@ -97,7 +97,7 @@ export default async function ImageCompressorPage({ searchParams }: { searchPara
       </ToolSection>
 
       <AdSlot
-        slot={SITE.adsenseSlots.toolsExtra4}
+        slot={SITE.adsenseSlots.toolContentBottom}
         className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
         minHeight={250}
       />

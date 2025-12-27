@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import type { Dictionary } from "@/languages";
 import { ToolHeader } from "@/ui/components/tools/ToolHeader";
 import { ToolSection } from "@/ui/components/tools/ToolSection";
+import { AdSlot } from "@/ui/components/AdSlot";
+import { SITE } from "@/application/siteConfig";
 
 export function UuidClient({ dict }: { dict: Dictionary }) {
   const [output, setOutput] = useState("");
@@ -31,6 +33,12 @@ export function UuidClient({ dict }: { dict: Dictionary }) {
       <ToolHeader
         title={dict["tools.dev.uuid.title"]}
         subtitle={dict["tools.dev.uuid.subtitle"]}
+      />
+
+      <AdSlot
+        slot={SITE.adsenseSlots.toolContentTop}
+        className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
+        minHeight={250}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

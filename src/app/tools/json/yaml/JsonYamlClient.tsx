@@ -5,6 +5,8 @@ import type { Dictionary } from "@/languages";
 import { ToolHeader } from "@/ui/components/tools/ToolHeader";
 import { ToolSection } from "@/ui/components/tools/ToolSection";
 import yaml from "js-yaml";
+import { AdSlot } from "@/ui/components/AdSlot";
+import { SITE } from "@/application/siteConfig";
 
 export function JsonYamlClient({ dict }: { dict: Dictionary }) {
   const [input, setInput] = useState("");
@@ -45,6 +47,12 @@ export function JsonYamlClient({ dict }: { dict: Dictionary }) {
       <ToolHeader
         title={dict["tools.json.yaml.title"]}
         subtitle={dict["tools.json.yaml.subtitle"]}
+      />
+
+      <AdSlot
+        slot={SITE.adsenseSlots.toolContentTop}
+        className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
+        minHeight={250}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import type { Dictionary } from "@/languages";
 import { ToolHeader } from "@/ui/components/tools/ToolHeader";
 import { ToolSection } from "@/ui/components/tools/ToolSection";
+import { AdSlot } from "@/ui/components/AdSlot";
+import { SITE } from "@/application/siteConfig";
 
 export function Base64Client({ dict }: { dict: Dictionary }) {
   const [input, setInput] = useState("");
@@ -42,6 +44,12 @@ export function Base64Client({ dict }: { dict: Dictionary }) {
       <ToolHeader
         title={dict["tools.text.base64.title"]}
         subtitle={dict["tools.text.base64.subtitle"]}
+      />
+
+      <AdSlot
+        slot={SITE.adsenseSlots.toolContentTop}
+        className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
+        minHeight={250}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
