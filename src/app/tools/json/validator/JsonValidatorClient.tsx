@@ -6,6 +6,9 @@ import { AdSlot } from "@/ui/components/AdSlot";
 import { SITE } from "@/application/siteConfig";
 import { useI18n } from "@/ui/providers/I18nProvider";
 import { useLocalePath } from "@/ui/hooks/useLocalePath";
+import { ToolPage } from "@/ui/components/tools/ToolPage";
+import { ToolHeader } from "@/ui/components/tools/ToolHeader";
+import { ToolSection } from "@/ui/components/tools/ToolSection";
 
 export function JsonValidatorClient() {
   const { t } = useI18n();
@@ -14,7 +17,7 @@ export function JsonValidatorClient() {
   const [input, setInput] = useState("");
   const [result, setResult] = useState<{ ok: boolean; message: string }>({
     ok: false,
-    message: t("tools.json.validator.status.idle")
+    message: t("tools.json.validator.status.idle"),
   });
 
   const isEmpty = useMemo(() => input.trim().length === 0, [input]);
@@ -29,9 +32,11 @@ export function JsonValidatorClient() {
   }
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">{t("tools.json.validator.title")}</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">{t("tools.json.validator.subtitle")}</p>
+    <ToolPage>
+      <ToolHeader
+        title={t("tools.json.validator.title")}
+        subtitle={t("tools.json.validator.subtitle")}
+      />
 
       <AdSlot
         slot={SITE.adsenseSlots.tools}
@@ -84,16 +89,14 @@ export function JsonValidatorClient() {
         {t("tools.json.validator.tip.after")}
       </p>
 
-      <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-          {t("tools.json.validator.section.what")}
-        </h2>
-        <p>{t("tools.json.validator.what.body")}</p>
+      <ToolSection title={t("tools.json.validator.section.what")}>
+        <p className="text-slate-600 dark:text-slate-300">
+          {t("tools.json.validator.what.body")}
+        </p>
+      </ToolSection>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-          {t("tools.json.validator.section.fix")}
-        </h2>
-        <ul className="list-disc space-y-2 pl-5">
+      <ToolSection title={t("tools.json.validator.section.fix")}>
+        <ul className="list-disc space-y-2 pl-5 text-slate-600 dark:text-slate-300">
           <li>{t("tools.json.validator.fix.li1")}</li>
           <li>{t("tools.json.validator.fix.li2")}</li>
           <li>{t("tools.json.validator.fix.li3")}</li>
@@ -105,16 +108,20 @@ export function JsonValidatorClient() {
             {t("tools.json.validator.fix.li4.after")}
           </li>
         </ul>
+      </ToolSection>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("common.privacyTitle")}</h2>
-        <p>
+      <ToolSection>
+        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+          {t("common.privacyTitle")}
+        </h2>
+        <p className="mt-2 text-slate-600 dark:text-slate-300">
           {t("tools.json.validator.privacy.before")}
           <a className="font-semibold" href={lp("/politica-de-privacidade")}>
             {t("common.privacyPolicy")}
           </a>
           {t("tools.json.validator.privacy.after")}
         </p>
-      </section>
-    </main>
+      </ToolSection>
+    </ToolPage>
   );
 }

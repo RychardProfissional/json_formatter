@@ -4,6 +4,9 @@ import { AdSlot } from "@/ui/components/AdSlot";
 import { getDict, localeQuery } from "@/application/i18nServer";
 import { ImageCompressor } from "./components/ImageCompressor";
 import { Suspense } from "react";
+import { ToolPage } from "@/ui/components/tools/ToolPage";
+import { ToolHeader } from "@/ui/components/tools/ToolHeader";
+import { ToolSection } from "@/ui/components/tools/ToolSection";
 
 type Params = { locale?: string };
 
@@ -41,9 +44,11 @@ export default async function ImageCompressorPage({ searchParams }: { searchPara
   const qs = localeQuery(lang);
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">{dict["tools.image.compressor.page.h1"]}</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">{dict["tools.image.compressor.page.lead"]}</p>
+    <ToolPage>
+      <ToolHeader
+        title={dict["tools.image.compressor.page.h1"]}
+        subtitle={dict["tools.image.compressor.page.lead"]}
+      />
 
       <AdSlot
         slot={SITE.adsenseSlots.toolsExtra3}
@@ -51,16 +56,14 @@ export default async function ImageCompressorPage({ searchParams }: { searchPara
         minHeight={250}
       />
 
-      <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+      <ToolSection>
         <Suspense fallback={<div className="h-64 animate-pulse rounded-xl bg-slate-100 dark:bg-slate-900" />}>
           <ImageCompressor />
         </Suspense>
-      </section>
+      </ToolSection>
 
-      <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <h2 className="text-xl font-bold">{dict["tools.image.compressor.page.faq.title"]}</h2>
-
-        <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+      <ToolSection title={dict["tools.image.compressor.page.faq.title"]}>
+        <div className="space-y-4 text-slate-600 dark:text-slate-300">
           <div>
             <h3 className="font-semibold text-slate-900 dark:text-slate-100">{dict["tools.image.compressor.page.faq.q1"]}</h3>
             <p className="mt-1">{dict["tools.image.compressor.page.faq.a1"]}</p>
@@ -91,7 +94,7 @@ export default async function ImageCompressorPage({ searchParams }: { searchPara
             <p className="mt-1">{dict["tools.image.compressor.page.faq.a6"]}</p>
           </div>
         </div>
-      </section>
+      </ToolSection>
 
       <AdSlot
         slot={SITE.adsenseSlots.toolsExtra4}
@@ -99,7 +102,7 @@ export default async function ImageCompressorPage({ searchParams }: { searchPara
         minHeight={250}
       />
 
-      <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+      <ToolSection>
         <h2 className="text-lg font-bold">{dict["common.privacyTitle"]}</h2>
         <p className="mt-2 text-slate-600 dark:text-slate-300">
           {dict["tools.image.compressor.page.privacy.before"]} {" "}
@@ -108,13 +111,13 @@ export default async function ImageCompressorPage({ searchParams }: { searchPara
           </a>
           {dict["tools.image.compressor.page.privacy.after"]}
         </p>
-      </section>
+      </ToolSection>
 
       <p className="mt-10 text-sm text-slate-500 dark:text-slate-400">
         {dict["tools.image.compressor.page.moreTools.before"]}
         <a href={`/tools${qs}`}>{dict["tools.image.compressor.page.moreTools.link"]}</a>
         {dict["tools.image.compressor.page.moreTools.after"]}
       </p>
-    </main>
+    </ToolPage>
   );
 }

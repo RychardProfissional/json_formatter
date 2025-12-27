@@ -6,6 +6,9 @@ import { AdSlot } from "@/ui/components/AdSlot";
 import { SITE } from "@/application/siteConfig";
 import { useI18n } from "@/ui/providers/I18nProvider";
 import { useLocalePath } from "@/ui/hooks/useLocalePath";
+import { ToolPage } from "@/ui/components/tools/ToolPage";
+import { ToolHeader } from "@/ui/components/tools/ToolHeader";
+import { ToolSection } from "@/ui/components/tools/ToolSection";
 
 export function JsonFormatterClient() {
   const { t } = useI18n();
@@ -14,7 +17,9 @@ export function JsonFormatterClient() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [indent, setIndent] = useState<2 | 4 | 8>(2);
-  const [status, setStatus] = useState<string>(() => t("tools.json.formatter.status.idle"));
+  const [status, setStatus] = useState<string>(() =>
+    t("tools.json.formatter.status.idle")
+  );
   const [statusKind, setStatusKind] = useState<"ok" | "error" | "">("");
 
   const isEmpty = useMemo(() => input.trim().length === 0, [input]);
@@ -83,9 +88,11 @@ export function JsonFormatterClient() {
   }
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">{t("tools.json.formatter.title")}</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">{t("tools.json.formatter.subtitle")}</p>
+    <ToolPage>
+      <ToolHeader
+        title={t("tools.json.formatter.title")}
+        subtitle={t("tools.json.formatter.subtitle")}
+      />
 
       <AdSlot
         slot={SITE.adsenseSlots.tools}
@@ -157,8 +164,8 @@ export function JsonFormatterClient() {
             statusKind === "ok"
               ? "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-200"
               : statusKind === "error"
-                ? "border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200"
-                : "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
+              ? "border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200"
+              : "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
           }`}
         >
           {status}
@@ -195,20 +202,19 @@ export function JsonFormatterClient() {
       </div>
 
       <p className="mt-8 text-sm text-slate-500 dark:text-slate-400">
-        {t("tools.json.formatter.links.seeAlso")} {" "}
+        {t("tools.json.formatter.links.seeAlso")}{" "}
         <a className="font-semibold" href={lp("/tools/json/validator")}>
           {t("tools.json.formatter.links.validator")}
         </a>{" "}
-        {t("common.and")} {" "}
+        {t("common.and")}{" "}
         <a className="font-semibold" href={lp("/tools/json/minify")}>
           {t("tools.json.formatter.links.minify")}
         </a>
         .
       </p>
 
-      <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("tools.json.formatter.section.howToUse")}</h2>
-        <ol className="list-decimal space-y-2 pl-5">
+      <ToolSection title={t("tools.json.formatter.section.howToUse")}>
+        <ol className="list-decimal space-y-2 pl-5 text-slate-600 dark:text-slate-300">
           <li>{t("tools.json.formatter.howToUse.step1")}</li>
           <li>{t("tools.json.formatter.howToUse.step2")}</li>
           <li>
@@ -220,33 +226,57 @@ export function JsonFormatterClient() {
           </li>
           <li>{t("tools.json.formatter.howToUse.step4")}</li>
         </ol>
+      </ToolSection>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("tools.json.formatter.section.commonErrors")}</h2>
-        <ul className="list-disc space-y-2 pl-5">
+      <ToolSection title={t("tools.json.formatter.section.commonErrors")}>
+        <ul className="list-disc space-y-2 pl-5 text-slate-600 dark:text-slate-300">
           <li>
-            <strong>{t("tools.json.formatter.errors.trailingComma.label")}:</strong> {t("tools.json.formatter.errors.trailingComma.text")}
+            <strong>
+              {t("tools.json.formatter.errors.trailingComma.label")}:
+            </strong>{" "}
+            {t("tools.json.formatter.errors.trailingComma.text")}
           </li>
           <li>
-            <strong>{t("tools.json.formatter.errors.singleQuotes.label")}:</strong> {t("tools.json.formatter.errors.singleQuotes.text")}
+            <strong>
+              {t("tools.json.formatter.errors.singleQuotes.label")}:
+            </strong>{" "}
+            {t("tools.json.formatter.errors.singleQuotes.text")}
           </li>
           <li>
-            <strong>{t("tools.json.formatter.errors.brackets.label")}:</strong> {t("tools.json.formatter.errors.brackets.lead")}{" "}
-            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"{"}</code> {t("tools.json.formatter.errors.brackets.closesWith")}{" "}
-            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"}"}</code> {t("tools.json.formatter.errors.brackets.and")}{" "}
-            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"["}</code> {t("tools.json.formatter.errors.brackets.closesWith")}{" "}
-            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">{"]"}</code>.
+            <strong>{t("tools.json.formatter.errors.brackets.label")}:</strong>{" "}
+            {t("tools.json.formatter.errors.brackets.lead")}{" "}
+            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">
+              {"{"}
+            </code>{" "}
+            {t("tools.json.formatter.errors.brackets.closesWith")}{" "}
+            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">
+              {"}"}
+            </code>{" "}
+            {t("tools.json.formatter.errors.brackets.and")}{" "}
+            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">
+              {"["}
+            </code>{" "}
+            {t("tools.json.formatter.errors.brackets.closesWith")}{" "}
+            <code className="rounded bg-slate-100 px-1 dark:bg-slate-900">
+              {"]"}
+            </code>
+            .
           </li>
         </ul>
+      </ToolSection>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("common.privacyTitle")}</h2>
-        <p>
+      <ToolSection>
+        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+          {t("common.privacyTitle")}
+        </h2>
+        <p className="mt-2 text-slate-600 dark:text-slate-300">
           {t("tools.json.formatter.privacy.before")}
           <a className="font-semibold" href={lp("/politica-de-privacidade")}>
             {t("common.privacyPolicy")}
           </a>
           {t("tools.json.formatter.privacy.after")}
         </p>
-      </section>
-    </main>
+      </ToolSection>
+    </ToolPage>
   );
 }

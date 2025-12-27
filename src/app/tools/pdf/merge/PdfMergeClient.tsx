@@ -6,10 +6,18 @@ import { SITE } from "@/application/siteConfig";
 import { useI18n } from "@/ui/providers/I18nProvider";
 import { useLocalePath } from "@/ui/hooks/useLocalePath";
 import { mergePdfs } from "@/domain/tools";
+import { ToolPage } from "@/ui/components/tools/ToolPage";
+import { ToolHeader } from "@/ui/components/tools/ToolHeader";
+import { ToolSection } from "@/ui/components/tools/ToolSection";
 
-function downloadBytes(bytes: ArrayBuffer | Uint8Array, filename: string, mime: string) {
-  const view = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes as ArrayBuffer);
-  const blob = new Blob([view as unknown as BlobPart], { type: mime });
+function downloadBytes(
+  bytes: ArrayBuffer | Uint8Array,
+  filename: string,
+  mime: string
+) {
+  const view =
+    bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes as ArrayBuffer);
+  const blob = new Blob([(view as unknown) as BlobPart], { type: mime });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -25,7 +33,9 @@ export function PdfMergeClient() {
   const lp = useLocalePath();
 
   const [files, setFiles] = useState<File[]>([]);
-  const [status, setStatus] = useState<string>(() => t("tools.pdf.merge.status.idle"));
+  const [status, setStatus] = useState<string>(() =>
+    t("tools.pdf.merge.status.idle")
+  );
   const [statusKind, setStatusKind] = useState<"ok" | "error" | "">("");
 
   const hasFiles = files.length > 0;
@@ -61,9 +71,11 @@ export function PdfMergeClient() {
   }
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">{t("tools.pdf.merge.title")}</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">{t("tools.pdf.merge.subtitle")}</p>
+    <ToolPage>
+      <ToolHeader
+        title={t("tools.pdf.merge.title")}
+        subtitle={t("tools.pdf.merge.subtitle")}
+      />
 
       <AdSlot
         slot={SITE.adsenseSlots.tools}
@@ -71,7 +83,7 @@ export function PdfMergeClient() {
         minHeight={250}
       />
 
-      <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+      <ToolSection>
         <label className="text-sm font-semibold" htmlFor="pdfs">
           {t("tools.pdf.merge.inputLabel")}
         </label>
@@ -90,7 +102,9 @@ export function PdfMergeClient() {
           {t("tools.pdf.merge.selected.after")}
         </p>
 
-        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{t("tools.pdf.merge.tip")}</p>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          {t("tools.pdf.merge.tip")}
+        </p>
 
         <div className="mt-4 flex flex-wrap gap-3">
           <button
@@ -116,34 +130,34 @@ export function PdfMergeClient() {
             statusKind === "ok"
               ? "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-200"
               : statusKind === "error"
-                ? "border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200"
-                : "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
+              ? "border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200"
+              : "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
           }`}
         >
           {status}
         </p>
-      </section>
+      </ToolSection>
 
-      <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+      <ToolSection>
+        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
           {t("common.privacyTitle")}
         </h2>
-        <p>
+        <p className="mt-2 text-slate-600 dark:text-slate-300">
           {t("tools.pdf.merge.privacy.before")}
           <a className="font-semibold" href={lp("/politica-de-privacidade")}>
             {t("common.privacyPolicy")}
           </a>
           {t("tools.pdf.merge.privacy.after")}
         </p>
-      </section>
+      </ToolSection>
 
       <p className="mt-10 text-sm text-slate-500 dark:text-slate-400">
-        {t("common.backTo")} {" "}
+        {t("common.backTo")}{" "}
         <a className="font-semibold" href={lp("/tools/pdf")}>
           {t("tools.pdf.index.title")}
         </a>
         .
       </p>
-    </main>
+    </ToolPage>
   );
 }

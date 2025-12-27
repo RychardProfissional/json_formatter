@@ -6,6 +6,9 @@ import { AdSlot } from "@/ui/components/AdSlot";
 import { SITE } from "@/application/siteConfig";
 import { useI18n } from "@/ui/providers/I18nProvider";
 import { useLocalePath } from "@/ui/hooks/useLocalePath";
+import { ToolPage } from "@/ui/components/tools/ToolPage";
+import { ToolHeader } from "@/ui/components/tools/ToolHeader";
+import { ToolSection } from "@/ui/components/tools/ToolSection";
 
 export function JsonCsvClient() {
   const { t } = useI18n();
@@ -16,7 +19,9 @@ export function JsonCsvClient() {
   const [csvInput, setCsvInput] = useState("");
   const [jsonOutput, setJsonOutput] = useState("");
 
-  const [status, setStatus] = useState<string>(() => t("tools.json.csv.status.idle"));
+  const [status, setStatus] = useState<string>(() =>
+    t("tools.json.csv.status.idle")
+  );
   const [statusKind, setStatusKind] = useState<"ok" | "error" | "">("");
 
   const isJsonEmpty = useMemo(() => jsonInput.trim().length === 0, [jsonInput]);
@@ -61,11 +66,11 @@ export function JsonCsvClient() {
   }
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">{t("tools.json.csv.title")}</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">
-        {t("tools.json.csv.subtitle")}
-      </p>
+    <ToolPage>
+      <ToolHeader
+        title={t("tools.json.csv.title")}
+        subtitle={t("tools.json.csv.subtitle")}
+      />
 
       <AdSlot
         slot={SITE.adsenseSlots.tools}
@@ -79,16 +84,15 @@ export function JsonCsvClient() {
             statusKind === "ok"
               ? "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-200"
               : statusKind === "error"
-                ? "border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200"
-                : "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
+              ? "border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200"
+              : "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
           }`}
         >
           {status}
         </p>
       </div>
 
-      <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <h2 className="text-lg font-bold">{t("tools.json.csv.section.jsonToCsvTitle")}</h2>
+      <ToolSection title={t("tools.json.csv.section.jsonToCsvTitle")}>
         <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
           {t("tools.json.csv.jsonToCsv.help")}
         </p>
@@ -119,10 +123,9 @@ export function JsonCsvClient() {
             className="min-h-56 w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 font-mono text-xs outline-none dark:border-slate-800 dark:bg-slate-900"
           />
         </div>
-      </section>
+      </ToolSection>
 
-      <section className="mt-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <h2 className="text-lg font-bold">{t("tools.json.csv.section.csvToJsonTitle")}</h2>
+      <ToolSection title={t("tools.json.csv.section.csvToJsonTitle")}>
         <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
           {t("tools.json.csv.csvToJson.help")}
         </p>
@@ -153,18 +156,16 @@ export function JsonCsvClient() {
             className="min-h-56 w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 font-mono text-xs outline-none dark:border-slate-800 dark:bg-slate-900"
           />
         </div>
-      </section>
+      </ToolSection>
 
-      <section className="mt-10 space-y-4 text-slate-600 dark:text-slate-300">
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-          {t("tools.json.csv.section.how")}
-        </h2>
-        <p>{t("tools.json.csv.how.body")}</p>
+      <ToolSection title={t("tools.json.csv.section.how")}>
+        <p className="text-slate-600 dark:text-slate-300">
+          {t("tools.json.csv.how.body")}
+        </p>
+      </ToolSection>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-          {t("tools.json.csv.section.tips")}
-        </h2>
-        <ul className="list-disc space-y-2 pl-5">
+      <ToolSection title={t("tools.json.csv.section.tips")}>
+        <ul className="list-disc space-y-2 pl-5 text-slate-600 dark:text-slate-300">
           <li>{t("tools.json.csv.tips.li1")}</li>
           <li>{t("tools.json.csv.tips.li2")}</li>
           <li>
@@ -175,16 +176,20 @@ export function JsonCsvClient() {
             {t("tools.json.csv.tips.li3.after")}
           </li>
         </ul>
+      </ToolSection>
 
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">{t("common.privacyTitle")}</h2>
-        <p>
+      <ToolSection>
+        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+          {t("common.privacyTitle")}
+        </h2>
+        <p className="mt-2 text-slate-600 dark:text-slate-300">
           {t("tools.json.csv.privacy.before")}
           <a className="font-semibold" href={lp("/politica-de-privacidade")}>
             {t("common.privacyPolicy")}
           </a>
           {t("tools.json.csv.privacy.after")}
         </p>
-      </section>
-    </main>
+      </ToolSection>
+    </ToolPage>
   );
 }

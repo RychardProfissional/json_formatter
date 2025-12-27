@@ -4,8 +4,6 @@ import { SITE } from "@/application/siteConfig";
 import { getDict, localeQuery } from "@/application/i18nServer";
 import { JsonMinifyClient } from "./JsonMinifyClient";
 
-type Params = { locale?: string };
-
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ lang?: string }> }): Promise<Metadata> {
   const sp = await searchParams;
   const lang = sp?.lang;
