@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { blogPosts } from "@/content/blog";
 import Link from "next/link";
-import { localeQuery } from "@/application/i18nServer";
+import { localeQuery, getDict } from "@/application/i18nServer";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -25,22 +25,21 @@ export const metadata: Metadata = {
 export default async function BlogIndexPage({ searchParams }: { searchParams: Promise<{ lang?: string }> }) {
   const sp = await searchParams
   const qs = localeQuery(sp?.lang);
+  const dict = getDict(sp?.lang);
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">Blog</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight">{dict["blog.title"]}</h1>
       <p className="mt-3 text-slate-600 dark:text-slate-300">
-        Conteúdo curto, direto e útil — para resolver problemas reais.
+        {dict["blog.subtitle"]}
       </p>
 
       <div className="mt-6 space-y-3 text-slate-600 dark:text-slate-300">
         <p>
-          O objetivo do blog é apoiar as ferramentas da Respawn Tech com explicações, exemplos e boas práticas. Aqui
-          você encontra guias de JSON, conversões (CSV/JSON), validação, depuração de payloads e dicas para reduzir o
-          tempo perdido em tarefas repetitivas.
+          {dict["blog.description.p1"]}
         </p>
         <p>
-          Quer ir direto para prática? Abra as <Link className="font-semibold" href={`/tools${qs}`}>ferramentas</Link> e use os artigos
-          como referência para entender erros comuns e padrões de uso.
+          {dict["blog.description.p2.before"]} <Link className="font-semibold" href={`/tools${qs}`}>{dict["blog.description.p2.link"]}</Link> {dict["blog.description.p2.after"]}
         </p>
       </div>
 

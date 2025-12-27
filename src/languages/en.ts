@@ -25,6 +25,8 @@ export const EN: Dictionary = {
 
   "lang.pt": "PT",
   "lang.en": "EN",
+  "lang.es": "ES",
+  "lang.fr": "FR",
 
   "common.input": "Input",
   "common.output": "Output",
@@ -429,5 +431,33 @@ export const EN: Dictionary = {
   "termsPage.sections.4.body": "You are responsible for reviewing results before using them in production. We are not liable for losses, damages or consequences arising from using the tools.",
   "termsPage.sections.5.title": "5) Contact",
   "termsPage.sections.5.body": "For questions, use the Contact page.",
-  "termsPage.sections.5.linkLabel": "Go to contact"
+  "termsPage.sections.5.linkLabel": "Go to contact",
+
+  "about.title": "About",
+  "about.whereTools": "Where are the tools",
+  "about.whereTools.body.before": "The tools are located at ",
+  "about.whereTools.body.link": "/tools",
+  "about.whereTools.body.after": ".",
+  "about.privacy": "Privacy and transparency",
+  "about.privacy.body.before": "transparency and user preference. See details in the ",
+  "about.privacy.body.link": "Privacy Policy",
+  "about.privacy.body.after": ".",
+  "about.maintainer": "Who maintains",
+  "about.maintainer.body.before": "The project is maintained by Rychard. Learn more at ",
+  "about.maintainer.body.link": "rychard.vercel.app",
+  "about.maintainer.body.after": ".",
+
+  "404.title": "Page not found",
+  "404.body.before": "The address may have changed. Go back to ",
+  "404.body.link": "home",
+  "404.body.after": ".",
+
+  "blog.title": "Blog",
+  "blog.cta.before": "Want to go straight to practice? Open the ",
+  "blog.cta.link": "tools",
+  "blog.cta.after": " and use the articles.",
+
+  "home.viewAll": "View all",
+  "home.role.dev": "Developers:",
+  "home.role.student": "Students:"
 };

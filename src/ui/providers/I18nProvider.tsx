@@ -51,7 +51,7 @@ export function I18nProvider({
       locale,
       setLocale,
       t: (key: string, vars?: Record<string, string | number>) => {
-        const template = dict[key] ?? key;
+        const template = dict[key] ?? dictionaries["pt-BR"][key] ?? key;
         if (!vars) return template;
         return template.replace(/\{(\w+)\}/g, (_m: string, name: string) => {
           const value = vars[name];

@@ -3,9 +3,16 @@ import { dictionaries, DEFAULT_LOCALE } from "@/languages";
 export type RouteLocaleParam = string | undefined;
 
 export function getDict(locale?: RouteLocaleParam) {
-  if (!locale) return dictionaries[DEFAULT_LOCALE];
+  const defaultDict = dictionaries[DEFAULT_LOCALE];
+  if (!locale) return defaultDict;
+
   // @ts-expect-error - we know locale is a string, but it might not be a valid key
-  return dictionaries[locale] ?? dictionaries[DEFAULT_LOCALE];
+  const targetDict = dictionaries[locale];
+
+  if (!targetDict) return defaultDict;
+
+  // Merge: default (pt-BR) as base, target as override
+  return { ...defaultDict, ...targetDict };
 }
 
 // Legacy: kept for compatibility but app now uses query-param `lang`.

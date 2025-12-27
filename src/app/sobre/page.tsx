@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getDict } from "@/application/i18nServer";
+import { SupportedLocale } from "@/languages";
 
 export const metadata: Metadata = {
   title: "Sobre",
@@ -23,37 +25,52 @@ export const metadata: Metadata = {
   }
 };
 
-export default function SobrePage() {
+interface Props {
+  searchParams: Promise<{ lang?: string }>;
+}
+
+export default async function About({ searchParams }: Props) {
+  const sp = await searchParams;
+  const lang = (sp?.lang as SupportedLocale) || "pt-BR";
+  const dict = getDict(lang);
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">Sobre</h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">
-        A Respawn Tech é um projeto que reúne ferramentas online gratuitas para programadores, estudantes e
-        empreendedores. O objetivo é reduzir atrito no dia a dia — tarefas pequenas e repetitivas devem ser resolvidas
-        em segundos, sem instalação e sem criar conta.
-      </p>
-
-      <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <h2 className="text-lg font-bold">Onde ficam as ferramentas</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-300">
-          As ferramentas ficam em <Link href="/tools">/tools</Link>.
+      <h1 className="text-3xl font-extrabold tracking-tight">{dict["about.title"]}</h1>
+      <div className="prose prose-slate dark:prose-invert mt-6">
+        <p className="text-lg text-slate-600 dark:text-slate-300">
+          {dict["home.what.p1"]}
         </p>
-      </section>
-
-      <section className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <h2 className="text-lg font-bold">Privacidade e transparência</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-300">
-          As ferramentas são pensadas para rodar no navegador. Quando houver anúncios e medição, isso é feito com
-          transparência e preferência do usuário. Veja detalhes na <Link href="/politica-de-privacidade">Política de Privacidade</Link>.
+        <p className="text-slate-600 dark:text-slate-300">
+          {dict["home.what.p2"]}
         </p>
-      </section>
-
-      <section className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <h2 className="text-lg font-bold">Quem mantém</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-300">
-          O projeto é mantido por Rychard. Saiba mais em <a href="https://rychard.vercel.app/" rel="noopener">rychard.vercel.app</a>.
+        <p className="text-slate-600 dark:text-slate-300">
+          {dict["home.what.p3"]}
         </p>
-      </section>
+
+        <h2 className="text-lg font-bold">{dict["about.whereTools"]}</h2>
+        <p className="mt-2 text-slate-600 dark:text-slate-300">
+          {dict["about.whereTools.body.before"]}
+          <Link href={dict["about.whereTools.body.link"]}>{dict["about.whereTools.body.link"]}</Link>
+          {dict["about.whereTools.body.after"]}
+        </p>
+
+        <h2 className="text-lg font-bold">{dict["about.privacy"]}</h2>
+        <p className="mt-2 text-slate-600 dark:text-slate-300">
+          {dict["home.diff.item4"]} {dict["about.privacy.body.before"]}
+          <Link href="/politica-de-privacidade">{dict["about.privacy.body.link"]}</Link>
+          {dict["about.privacy.body.after"]}
+        </p>
+
+        <h2 className="text-lg font-bold">{dict["about.maintainer"]}</h2>
+        <p className="mt-2 text-slate-600 dark:text-slate-300">
+          {dict["about.maintainer.body.before"]}
+          <a href={`https://${dict["about.maintainer.body.link"]}/`} rel="noopener">
+            {dict["about.maintainer.body.link"]}
+          </a>
+          {dict["about.maintainer.body.after"]}
+        </p>
+      </div>
     </main>
   );
 }

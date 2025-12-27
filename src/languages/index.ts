@@ -1,7 +1,7 @@
 import { EN } from "./en";
 import { PT_BR } from "./pt-br";
-import { es } from "./es";
-import { fr } from "./fr";
+import { ES } from "./es";
+import { FR } from "./fr";
 
 export type Locale = string;
 
@@ -15,8 +15,8 @@ export const DEFAULT_LOCALE: SupportedLocale = "pt-BR";
 export const dictionaries: Record<SupportedLocale, typeof PT_BR> = {
   "pt-BR": PT_BR,
   en: EN,
-  es,
-  fr,
+  es: ES,
+  fr: FR,
 };
 
 export function isSupportedLocale(locale: string): locale is SupportedLocale {

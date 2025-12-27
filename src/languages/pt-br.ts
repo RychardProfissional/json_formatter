@@ -25,6 +25,8 @@ export const PT_BR: Dictionary = {
 
   "lang.pt": "PT",
   "lang.en": "EN",
+  "lang.es": "ES",
+  "lang.fr": "FR",
 
   "common.input": "Entrada",
   "common.output": "Saída",
@@ -437,5 +439,33 @@ export const PT_BR: Dictionary = {
   "termsPage.sections.4.body": "Você é responsável por revisar o resultado antes de usar em produção. Não nos responsabilizamos por perdas, danos ou consequências decorrentes do uso das ferramentas.",
   "termsPage.sections.5.title": "5) Contato",
   "termsPage.sections.5.body": "Para dúvidas, acesse a página de Contato.",
-  "termsPage.sections.5.linkLabel": "Ir para contato"
+  "termsPage.sections.5.linkLabel": "Ir para contato",
+
+  "about.title": "Sobre",
+  "about.whereTools": "Onde ficam as ferramentas",
+  "about.whereTools.body.before": "As ferramentas ficam em ",
+  "about.whereTools.body.link": "/tools",
+  "about.whereTools.body.after": ".",
+  "about.privacy": "Privacidade e transparência",
+  "about.privacy.body.before": "transparência e preferência do usuário. Veja detalhes na ",
+  "about.privacy.body.link": "Política de Privacidade",
+  "about.privacy.body.after": ".",
+  "about.maintainer": "Quem mantém",
+  "about.maintainer.body.before": "O projeto é mantido por Rychard. Saiba mais em ",
+  "about.maintainer.body.link": "rychard.vercel.app",
+  "about.maintainer.body.after": ".",
+
+  "404.title": "Página não encontrada",
+  "404.body.before": "O endereço pode ter mudado. Volte para a ",
+  "404.body.link": "home",
+  "404.body.after": ".",
+
+  "blog.title": "Blog",
+  "blog.cta.before": "Quer ir direto para prática? Abra as ",
+  "blog.cta.link": "ferramentas",
+  "blog.cta.after": " e use os artigos.",
+
+  "home.viewAll": "Ver tudo",
+  "home.role.dev": "Desenvolvedores:",
+  "home.role.student": "Estudantes:"
 };

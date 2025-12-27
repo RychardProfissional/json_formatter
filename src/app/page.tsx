@@ -320,46 +320,42 @@ export default async function HomePage({ searchParams }: Props) {
             mainEntity: [
               {
                 "@type": "Question",
-                name: "É grátis?",
+                name: dict["home.faq.q1"],
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text:
-                    "Sim. As ferramentas da Respawn Tech são gratuitas para uso pessoal e profissional.",
+                  text: dict["home.faq.a1"],
                 },
               },
               {
                 "@type": "Question",
-                name: "Meus dados ficam armazenados?",
+                name: dict["home.faq.q2"],
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text:
-                    "Em geral não. O processamento ocorre no navegador. Algumas funções podem usar armazenamento local apenas se você ativar.",
+                  text: dict["home.faq.a2"],
                 },
               },
               {
                 "@type": "Question",
-                name: "Precisa de login?",
+                name: dict["home.faq.q3"],
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text:
-                    "Não. A proposta é reduzir atrito: abrir e usar, sem criar conta.",
+                  text: dict["home.faq.a3"],
                 },
               },
               {
                 "@type": "Question",
-                name: "Quem desenvolveu?",
+                name: dict["home.faq.q4"],
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "O projeto é mantido por Rychard.",
+                  text: dict["home.faq.a4"],
                 },
               },
               {
                 "@type": "Question",
-                name: "Posso usar comercialmente?",
+                name: dict["home.faq.q5"],
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text:
-                    "Sim. Recomendamos revisar os resultados antes de usar em produção, especialmente conversões.",
+                  text: dict["home.faq.a5"],
                 },
               },
             ],
