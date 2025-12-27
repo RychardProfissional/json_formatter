@@ -1,18 +1,20 @@
 import { EN } from "./en";
 import { PT_BR } from "./pt-br";
 
-export type Locale = "pt-BR" | "en";
+export type Locale = string;
 
 export type Dictionary = Record<string, string>;
 
-export const DICTIONARIES: Record<Locale, Dictionary> = {
+export const DICTIONARIES: Record<string, Dictionary> = {
   "pt-BR": PT_BR,
   en: EN
 };
 
-export const SUPPORTED_LOCALES = ["pt-BR", "en"] as const;
+export const DEFAULT_LOCALE = "pt-BR";
+
+export const SUPPORTED_LOCALES = Object.keys(DICTIONARIES) as string[];
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 
 export function isSupportedLocale(value: unknown): value is SupportedLocale {
-  return typeof value === "string" && (SUPPORTED_LOCALES as readonly string[]).includes(value);
+  return typeof value === "string" && SUPPORTED_LOCALES.includes(value as string);
 }

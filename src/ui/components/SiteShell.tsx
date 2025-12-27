@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useI18n } from "@/ui/providers/I18nProvider";
-import { ThemeToggle } from "@/ui/components/ThemeToggle";
 import { CookiePrefsLink } from "@/ui/components/CookiePrefsLink";
 import { LanguageToggle } from "@/ui/components/LanguageToggle";
 import { useLocalePath } from "@/ui/hooks/useLocalePath";
@@ -22,8 +21,8 @@ export function SiteShell({
 }
 
 function Header() {
-  const { t } = useI18n();
-  const lp = useLocalePath();
+  const { t, locale } = useI18n();
+  const lp = useLocalePath(locale);
 
   const nav = [
     { href: lp("/"), label: t("nav.home") },
@@ -49,7 +48,6 @@ function Header() {
         </nav>
         <div className="flex items-center gap-2">
           <LanguageToggle />
-          <ThemeToggle />
         </div>
       </div>
     </header>
@@ -57,8 +55,8 @@ function Header() {
 }
 
 function Footer() {
-  const { t } = useI18n();
-  const lp = useLocalePath();
+  const { t, locale } = useI18n();
+  const lp = useLocalePath(locale);
 
   return (
     <footer className="border-t border-slate-200 py-10 dark:border-slate-800">

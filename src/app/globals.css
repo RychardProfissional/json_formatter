@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html.dark {
@@ -9,17 +9,9 @@ html.dark {
 }
 
 body {
-  @apply min-h-dvh bg-slate-50 text-slate-900;
-}
-
-html.dark body {
   @apply bg-slate-950 text-slate-100;
 }
 
 a {
-  @apply text-blue-700 hover:underline;
-}
-
-html.dark a {
   @apply text-blue-300;
 }

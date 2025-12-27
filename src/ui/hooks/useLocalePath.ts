@@ -1,15 +1,13 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { DEFAULT_LOCALE } from "@/application/i18n";
 
-export function useLocalePath() {
-  const pathname = usePathname() ?? "/";
-  const isEn = pathname === "/en" || pathname.startsWith("/en/");
-
+export function useLocalePath(targetLocale?: string) {
   return (path: string) => {
     const normalized = path.startsWith("/") ? path : `/${path}`;
-    if (!isEn) return normalized;
-    if (normalized === "/") return "/en";
-    return `/en${normalized}`;
+    const to = targetLocale ?? undefined;
+    if (!to || to === DEFAULT_LOCALE) return normalized;
+    const qs = `?lang=${encodeURIComponent(to)}`;
+    return `${normalized}${qs}`;
   };
 }

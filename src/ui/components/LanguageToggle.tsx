@@ -1,30 +1,26 @@
 "use client";
 
 import { useI18n, type Locale } from "@/ui/providers/I18nProvider";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { SUPPORTED_LOCALES } from "@/application/i18n";
 
 export function LanguageToggle() {
   const { locale, setLocale, t } = useI18n();
   const pathname = usePathname() ?? "/";
+  const searchParams = useSearchParams();
   const router = useRouter();
 
-  const options: Array<{ locale: Locale; label: string }> = [
-    { locale: "pt-BR", label: t("lang.pt") },
-    { locale: "en", label: t("lang.en") }
-  ];
-
-  const isEnPath = pathname === "/en" || pathname.startsWith("/en/");
+  const options: Array<{ locale: Locale; label: string }> = SUPPORTED_LOCALES.map((loc) => {
+    const short = loc.split("-")[0];
+    const labelKey = `lang.${short}`;
+    return { locale: loc as Locale, label: t(labelKey) };
+  });
 
   function routeFor(next: Locale): string {
-    if (next === "en") {
-      if (isEnPath) return pathname;
-      return pathname === "/" ? "/en" : `/en${pathname}`;
-    }
-
-    // pt-BR
-    if (!isEnPath) return pathname;
-    const stripped = pathname.replace(/^\/en(\/|$)/, "/");
-    return stripped === "" ? "/" : stripped;
+    const params = new URLSearchParams(searchParams ? searchParams.toString() : "");
+    params.set("lang", next);
+    const qs = params.toString();
+    return pathname + (qs ? `?${qs}` : "");
   }
 
   return (

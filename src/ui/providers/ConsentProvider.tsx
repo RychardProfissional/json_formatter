@@ -3,7 +3,8 @@
 import React, { useCallback, useMemo, useState, useSyncExternalStore } from "react";
 import Script from "next/script";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { isSupportedLocale, DEFAULT_LOCALE } from "@/application/i18n";
 import { CONSENT_STORAGE_KEY, type ConsentChoice, type ConsentState } from "@/application/consent";
 import { SITE } from "@/application/siteConfig";
 import { BrowserStorage } from "@/infra/browser/storage";
@@ -141,8 +142,9 @@ export function ConsentProvider({ children }: { children: React.ReactNode }) {
 function ConsentBanner() {
   const { accept, reject } = useConsent();
   const { t } = useI18n();
-  const pathname = usePathname();
-  const prefix = pathname?.startsWith("/en") ? "/en" : "";
+  const searchParams = useSearchParams();
+  const lang = searchParams?.get("lang") ?? undefined;
+  const qs = lang && lang !== DEFAULT_LOCALE ? `?lang=${encodeURIComponent(lang)}` : "";
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 p-4 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
@@ -153,7 +155,7 @@ function ConsentBanner() {
             {t("consent.body")}
           </p>
           <p className="text-sm">
-            <Link className="text-blue-700 hover:underline dark:text-blue-300" href={`${prefix}/politica-de-privacidade`}>
+            <Link className="text-blue-700 hover:underline dark:text-blue-300" href={`/politica-de-privacidade${qs}`}>
               {t("consent.viewPolicy")}
             </Link>
           </p>

@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { I18N_COOKIE_KEY, I18N_STORAGE_KEY, isSupportedLocale } from "@/application/i18n";
-import { DICTIONARIES, type Locale as AppLocale } from "@/languages";
+import { DICTIONARIES, DEFAULT_LOCALE, type Locale as AppLocale } from "@/languages";
 
 export type Locale = AppLocale;
 
@@ -26,8 +26,14 @@ export function I18nProvider({
     const stored = window.localStorage.getItem(I18N_STORAGE_KEY);
     if (isSupportedLocale(stored)) return stored;
 
-    const path = window.location?.pathname ?? "";
-    if (path === "/en" || path.startsWith("/en/")) return "en";
+    try {
+      const params = new URLSearchParams(window.location.search ?? "");
+      const q = params.get("lang") ?? params.get("locale");
+      if (isSupportedLocale(q)) return q as AppLocale;
+    } catch {
+      // ignore
+    }
+
     return defaultLocale;
   });
 
