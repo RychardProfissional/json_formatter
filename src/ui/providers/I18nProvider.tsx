@@ -49,7 +49,10 @@ export function I18nProvider({
     const dict = dictionaries[locale] ?? dictionaries["pt-BR"];
     return {
       locale,
-      setLocale,
+      setLocale: (next: Locale) => {
+        setLocale(next);
+        document.cookie = `rt-lang=${next}; path=/; max-age=31536000; SameSite=Lax`;
+      },
       t: (key: string, vars?: Record<string, string | number>) => {
         const template = dict[key] ?? dictionaries["pt-BR"][key] ?? key;
         if (!vars) return template;

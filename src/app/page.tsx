@@ -44,7 +44,7 @@ export default async function HomePage({ searchParams }: Props) {
   ];
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-16 space-y-24">
+    <div className="mx-auto max-w-7xl px-4 py-16 space-y-24">
       {/* Hero Section */}
       <section aria-label="Hero" className="text-center relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 blur-[100px] rounded-full pointer-events-none -z-10" />

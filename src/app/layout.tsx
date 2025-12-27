@@ -6,6 +6,8 @@ import { ConsentProvider } from "@/ui/providers/ConsentProvider";
 import { SiteShell } from "@/ui/components/SiteShell";
 import { SITE } from "@/application/siteConfig";
 import { Suspense } from "react";
+import { cookies } from "next/headers";
+import { isSupportedLocale } from "@/application/i18n";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://respawntech.dev"),
@@ -41,14 +43,14 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // In a real app with i18n middleware, we would get the lang from params.
-  // For now, we default to pt-BR but allow it to be dynamic if we add middleware later.
-  const lang = "pt-BR"; 
+  const cookieStore = await cookies();
+  const langCookie = cookieStore.get("rt-lang");
+  const lang = (langCookie?.value && isSupportedLocale(langCookie.value)) ? langCookie.value : "pt-BR";
 
   return (
     <html lang={lang} suppressHydrationWarning>

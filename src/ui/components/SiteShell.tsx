@@ -35,7 +35,7 @@ function Header() {
   ];
 
   return (
-    <header className="sticky top-4 z-50 mx-auto w-full max-w-5xl px-4">
+    <header className="sticky top-4 z-50 mx-auto w-full max-w-7xl px-4">
       <div className="glass rounded-2xl flex items-center justify-between gap-3 px-4 py-3 shadow-2xl shadow-black/20">
         <nav className="flex flex-wrap items-center gap-1">
           {nav.map((n) => (
@@ -68,7 +68,7 @@ function Footer() {
 
   return (
     <footer className="border-t border-white/5 bg-black/20 py-12 mt-20 backdrop-blur-sm">
-      <div className="mx-auto max-w-5xl px-4">
+      <div className="mx-auto max-w-7xl px-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-sm text-muted-foreground">{t("footer.tagline")}</p>
           <div className="flex flex-wrap gap-6 text-sm">

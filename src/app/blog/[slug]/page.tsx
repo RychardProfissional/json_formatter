@@ -49,7 +49,7 @@ export default async function BlogPostPage({ params, searchParams }: { params: P
   const qs = localeQuery(lang);
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
+    <main className="mx-auto max-w-7xl px-4 py-10">
       <Link href={`/blog${qs}`} className="text-sm font-semibold text-blue-700 hover:underline dark:text-blue-300">
         ← Voltar
       </Link>

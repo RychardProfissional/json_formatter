@@ -28,7 +28,7 @@ export default async function BlogIndexPage({ searchParams }: { searchParams: Pr
   const dict = getDict(sp?.lang);
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
+    <main className="mx-auto max-w-7xl px-4 py-10">
       <h1 className="text-3xl font-extrabold tracking-tight">{dict["blog.title"]}</h1>
       <p className="mt-3 text-slate-600 dark:text-slate-300">
         {dict["blog.subtitle"]}
