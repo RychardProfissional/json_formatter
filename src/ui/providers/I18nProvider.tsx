@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { I18N_COOKIE_KEY, I18N_STORAGE_KEY, isSupportedLocale } from "@/application/i18n";
+import { isSupportedLocale } from "@/application/i18n";
 import { DICTIONARIES, DEFAULT_LOCALE, type Locale as AppLocale } from "@/languages";
 
 export type Locale = AppLocale;
@@ -23,8 +23,6 @@ export function I18nProvider({
 }) {
   const [locale, setLocale] = useState<Locale>(() => {
     if (typeof window === "undefined") return defaultLocale;
-    const stored = window.localStorage.getItem(I18N_STORAGE_KEY);
-    if (isSupportedLocale(stored)) return stored;
 
     try {
       const params = new URLSearchParams(window.location.search ?? "");
@@ -41,20 +39,7 @@ export function I18nProvider({
     if (typeof window === "undefined") return;
 
     try {
-      window.localStorage.setItem(I18N_STORAGE_KEY, locale);
-    } catch {
-      // ignore
-    }
-
-    try {
       document.documentElement.lang = locale;
-    } catch {
-      // ignore
-    }
-
-    try {
-      const maxAge = 60 * 60 * 24 * 365;
-      document.cookie = `${I18N_COOKIE_KEY}=${encodeURIComponent(locale)}; Path=/; Max-Age=${maxAge}; SameSite=Lax`;
     } catch {
       // ignore
     }

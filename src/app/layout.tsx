@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/ui/providers/ThemeProvider";
 import { ConsentProvider } from "@/ui/providers/ConsentProvider";
 import { SiteShell } from "@/ui/components/SiteShell";
 import { SITE } from "@/application/siteConfig";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://respawntech.dev"),
@@ -50,9 +51,11 @@ export default function RootLayout({
       <body>
         <I18nProvider defaultLocale="pt-BR">
           <ThemeProvider>
-            <ConsentProvider>
-              <SiteShell>{children}</SiteShell>
-            </ConsentProvider>
+            <Suspense fallback={null}>
+              <ConsentProvider>
+                <SiteShell>{children}</SiteShell>
+              </ConsentProvider>
+            </Suspense>
           </ThemeProvider>
         </I18nProvider>
       </body>

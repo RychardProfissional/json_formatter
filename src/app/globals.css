@@ -1,17 +1,79 @@
 @import "tailwindcss";
 
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+
+  --animate-fade-in: fadeIn 0.5s ease-out;
+  --animate-slide-up: slideUp 0.5s ease-out;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes slideUp {
+    0% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
 :root {
+  --background: #030712; /* Gray 950 */
+  --foreground: #f8fafc; /* Slate 50 */
+
+  --primary: #8b5cf6; /* Violet 500 */
+  --primary-foreground: #ffffff;
+
+  --secondary: #0ea5e9; /* Sky 500 */
+  --secondary-foreground: #ffffff;
+
+  --accent: #1e293b; /* Slate 800 */
+  --accent-foreground: #f8fafc;
+
+  --muted: #334155; /* Slate 700 */
+  --muted-foreground: #94a3b8; /* Slate 400 */
+
+  --border: #1e293b; /* Slate 800 */
+
   color-scheme: dark;
 }
 
-html.dark {
-  color-scheme: dark;
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary selection:text-primary-foreground;
+  }
 }
 
-body {
-  @apply bg-slate-950 text-slate-100;
-}
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+  }
 
-a {
-  @apply text-blue-300;
+  .glass-hover {
+    @apply hover:bg-white/10 transition-colors duration-300;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-secondary;
+  }
 }

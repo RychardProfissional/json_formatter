@@ -8,7 +8,6 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   const sp = await searchParams;
   const lang = sp?.lang;
   const dict = getDict(lang);
-  const qs = localeQuery(lang);
   return {
     title: dict["tools.index.meta.title"],
     description: dict["tools.index.meta.description"],

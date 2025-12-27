@@ -3,6 +3,7 @@ import { SITE } from "@/application/siteConfig";
 import { AdSlot } from "@/ui/components/AdSlot";
 import { getDict, localeQuery } from "@/application/i18nServer";
 import { ImageCompressor } from "./components/ImageCompressor";
+import { Suspense } from "react";
 
 type Params = { locale?: string };
 
@@ -51,7 +52,9 @@ export default async function ImageCompressorPage({ searchParams }: { searchPara
       />
 
       <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <ImageCompressor />
+        <Suspense fallback={<div className="h-64 animate-pulse rounded-xl bg-slate-100 dark:bg-slate-900" />}>
+          <ImageCompressor />
+        </Suspense>
       </section>
 
       <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
