@@ -46,7 +46,7 @@ export function I18nProvider({
   }, [locale]);
 
   const api = useMemo<I18nApi>(() => {
-    const dict = dictionaries[locale] ?? dictionaries["pt-BR"];
+    const dict = dictionaries[locale] ?? dictionaries[DEFAULT_LOCALE];
     return {
       locale,
       setLocale: (next: Locale) => {
@@ -54,7 +54,7 @@ export function I18nProvider({
         document.cookie = `rt-lang=${next}; path=/; max-age=31536000; SameSite=Lax`;
       },
       t: (key: string, vars?: Record<string, string | number>) => {
-        const template = dict[key] ?? dictionaries["pt-BR"][key] ?? key;
+        const template = dict[key] ?? dictionaries[DEFAULT_LOCALE][key] ?? key;
         if (!vars) return template;
         return template.replace(/\{(\w+)\}/g, (_m: string, name: string) => {
           const value = vars[name];

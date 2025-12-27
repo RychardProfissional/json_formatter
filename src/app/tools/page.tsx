@@ -42,6 +42,11 @@ export default async function ToolsIndexPage({ searchParams }: { searchParams: P
     { href: "/tools/json/escape", name: dict["tools.json.escape.title"], desc: dict["tools.json.index.cards.escape.desc"] },
     { href: "/tools/json/csv", name: dict["tools.json.csv.title"], desc: dict["tools.json.index.cards.csv.desc"] },
     { href: "/tools/json/jsonl-prettify", name: dict["tools.json.jsonl.title"], desc: dict["tools.json.index.cards.jsonl.desc"] },
+    { href: "/tools/json/yaml", name: dict["tools.json.yaml.title"], desc: dict["tools.json.index.cards.yaml.desc"] },
+    { href: "/tools/json/xml", name: dict["tools.json.xml.title"], desc: dict["tools.json.index.cards.xml.desc"] },
+    { href: "/tools/text/base64", name: dict["tools.text.base64.title"], desc: dict["tools.text.index.cards.base64.desc"] },
+    { href: "/tools/text/url-encode", name: dict["tools.text.url.title"], desc: dict["tools.text.index.cards.url.desc"] },
+    { href: "/tools/dev/uuid", name: dict["tools.dev.uuid.title"], desc: dict["tools.dev.index.cards.uuid.desc"] },
     { href: "/tools/image/compressor", name: dict["tools.image.index.cards.compressor.title"], desc: dict["tools.image.index.cards.compressor.desc"] },
     { href: "/tools/pdf", name: dict["tools.index.cards.pdf.title"], desc: dict["tools.index.cards.pdf.desc"] }
   ];

@@ -41,6 +41,31 @@ export default async function HomePage({ searchParams }: Props) {
       name: dict["tools.json.jsonl.title"] ?? "Prettify JSONL",
       desc: dict["tools.json.jsonl.meta.description"] ?? "Prettify JSONL",
     },
+    {
+      href: "/tools/json/yaml",
+      name: dict["tools.json.yaml.title"],
+      desc: dict["tools.json.index.cards.yaml.desc"],
+    },
+    {
+      href: "/tools/json/xml",
+      name: dict["tools.json.xml.title"],
+      desc: dict["tools.json.index.cards.xml.desc"],
+    },
+    {
+      href: "/tools/text/base64",
+      name: dict["tools.text.base64.title"],
+      desc: dict["tools.text.index.cards.base64.desc"],
+    },
+    {
+      href: "/tools/text/url-encode",
+      name: dict["tools.text.url.title"],
+      desc: dict["tools.text.index.cards.url.desc"],
+    },
+    {
+      href: "/tools/dev/uuid",
+      name: dict["tools.dev.uuid.title"],
+      desc: dict["tools.dev.index.cards.uuid.desc"],
+    },
   ];
 
   return (

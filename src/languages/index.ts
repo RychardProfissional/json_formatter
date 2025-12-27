@@ -10,7 +10,7 @@ export type Dictionary = Record<string, string>;
 export const SUPPORTED_LOCALES = ["pt-BR", "en", "es", "fr"] as const;
 export type SupportedLocale = typeof SUPPORTED_LOCALES[number];
 
-export const DEFAULT_LOCALE: SupportedLocale = "pt-BR";
+export const DEFAULT_LOCALE: SupportedLocale = "en";
 
 export const dictionaries: Record<SupportedLocale, typeof PT_BR> = {
   "pt-BR": PT_BR,
